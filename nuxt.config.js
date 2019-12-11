@@ -1,3 +1,4 @@
+require('dotenv').config();
 
 module.exports = {
   mode: 'universal',
@@ -33,6 +34,8 @@ module.exports = {
   ** Nuxt.js dev-modules
   */
   buildModules: [
+      // https://github.com/nuxt-community/dotenv-module
+      '@nuxtjs/dotenv',
   ],
   /*
   ** Nuxt.js modules
