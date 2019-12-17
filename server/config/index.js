@@ -3,4 +3,4 @@
 // config() will read your .env file, parse the contents, assign it to process.env.
 //dotenv.config();
 
-console.log(process.env.EXAMPLE);
+console.log("Configuration File Loaded");
