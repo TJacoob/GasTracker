@@ -1,0 +1,31 @@
+.btn-main {
+  display: block;
+  background-color: $primary;
+  color: $white;
+  border-radius: .75rem;
+  padding: 1rem .5rem;
+  margin-bottom: 1rem;
+  font-weight: $font-weight-normal;
+  text-align:center;
+  border: 1px solid $primary;
+  @include rfs(1.5rem);
+  @include box-shadow(2px 2px 6px 0px rgba($black,0.3));
+  @include transition($transition-base);
+  @include hover-focus-active{
+	color: $white;
+	background-color: lighten($primary,5);
+	@include box-shadow(2px 2px 6px 0px rgba($black,0.5));
+	@include transition($transition-base);
+  }
+
+  &.disabled{
+	color: $gray;
+	background-color: $white;
+	border: 1px solid $gray;
+	@include hover-focus-active{
+	  color: $gray;
+	  background-color: $white;
+	  border: 1px solid $gray;
+	}
+  }
+}

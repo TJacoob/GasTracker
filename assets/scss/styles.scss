@@ -1,0 +1,36 @@
+// Fonts
+.f-primary{ color: $primary; }
+.f-secondary{ color: $secondary; }
+.f-gray{ color: $gray }
+.f-light-gray{ color: $light-gray }
+.f-black{ color: $black }
+.f-white{ color: $white; }
+
+// Backgrounds
+.primary{ background-color: $primary }
+.secondary{ background-color: $secondary }
+.gray{ background-color: $gray }
+.light-gray{ background-color: $light-gray }
+.black{ background-color: $black }
+
+// Utilities
+.height-100{ min-height: calc(var(--vh, 1vh) * 100); }
+.height-90{ min-height: calc(var(--vh, 1vh) * 90); }
+.height-80{ min-height: calc(var(--vh, 1vh) * 80); }
+.height-70{ min-height: calc(var(--vh, 1vh) * 70); }
+.height-60{ min-height: calc(var(--vh, 1vh) * 60); }
+.height-50{ min-height: calc(var(--vh, 1vh) * 50); }
+.height-40{ min-height: calc(var(--vh, 1vh) * 40); }
+.height-30{ min-height: calc(var(--vh, 1vh) * 30); }
+.height-20{ min-height: calc(var(--vh, 1vh) * 20); }
+.height-10{ min-height: calc(var(--vh, 1vh) * 10); }
+
+// Typography
+.lh-lg{ line-height: $line-height-lg };
+.lh-sm{ line-height: $line-height-sm };
+
+// Absolute Base
+#absolute-base{
+  min-height: calc(var(--vh, 1vh) * 100);
+  background-color: red;
+}

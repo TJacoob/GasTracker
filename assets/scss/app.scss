@@ -1,0 +1,16 @@
+// Global Variables
+@import 'variables';
+
+// Bootstrap Defaults
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+
+// Sass Mixins
+@import 'mixins';
+
+// Project Global Styles
+@import 'styles';
+@import 'framework';
+@import 'buttons';
+@import 'boxes';
+@import 'forms';
