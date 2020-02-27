@@ -11,3 +11,13 @@
   -o-transform: translate($x, $y);
   transform: translate($x, $y);
 }
+
+@mixin placeholder(){
+  &::-webkit-input-placeholder,
+  &:-moz-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder,
+  &::-ms-input-placeholder,
+  &::placeholder{ @content; }
+}
+

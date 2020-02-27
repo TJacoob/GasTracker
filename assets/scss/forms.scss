@@ -1,0 +1,20 @@
+.form-control{
+  color: $black;
+  border: none;
+  border-bottom: 1px solid $gray;
+  @include transition($transition-base);
+  @include placeholder{
+	color: $gray;
+	opacity: 1;
+	@include transition($transition-base);
+  };
+  @include hover-focus-active{
+	border-bottom: 1px solid $black;
+	outline: none;
+	@include box-shadow(none);
+	@include placeholder{
+	  color: $black;
+	  @include transition($transition-base);
+	}
+  }
+}

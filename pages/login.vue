@@ -1,10 +1,17 @@
 <template>
 	<BaseLayout>
-		<div slot="content">
+		<div slot="content" class="content-position align-end">
 			<div class="container-fluid">
-				<div class="row align-items-end">
-					<div class="col-12">
-						<p>Lorem</p>
+				<div class="row justify-content-center">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
+						<form>
+							<div class="form-group">
+								<input v-model="username" type="text" class="form-control" id="inputUsername" placeholder="Username">
+							</div>
+							<div class="form-group">
+								<input v-model="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
