@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
 
+// Body Parser
+const bodyParser  = require('body-parser');
+app.use(bodyParser.urlencoded({extended: true}));
+
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js');
 config.dev = process.env.NODE_ENV !== 'production';
@@ -20,6 +24,7 @@ app.use('/api/users/', users);
 mongoose.connect('mongodb://127.0.0.1:27017/gastracker', { useNewUrlParser: true });
 const connection = mongoose.connection;
 
+connection.on('error', function(err) { console.log(err.message); });
 connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })

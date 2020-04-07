@@ -1,5 +1,6 @@
 const UserService =require("../services/user-service") ;
 const { Router } = require('express');
+const { userValidationRules, validate, userExists, emailInUse } = require('../validations/user');
 
 const router = Router();
 
@@ -23,10 +24,12 @@ router.get("/all", async (req, res) => {
 // @route POST api/users/create
 // @desc Login user
 // @access Public
-router.post("/create", async (req, res) => {
+router.post("/create", userValidationRules(), validate, userExists, emailInUse, async (req, res) => {
     // Validate Data
-    //const userData = req.body;
-    const userData = users[0];
+    const userData = req.body;
+    //console.log(req);
+    //console.log(req.body);
+    //const userData = users[0];
 
     // Call Service to handle business logic
     const result = await UserService.Signup(userData);
