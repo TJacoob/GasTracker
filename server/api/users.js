@@ -1,12 +1,12 @@
 const UserService =require("../services/user-service") ;
-const { Router } = require('express')
+const { Router } = require('express');
 
 const router = Router();
 
 // Mock Users
 const users = [
     {
-        username:'tjacob',
+        username:'lorem',
         email:'tjacob',
         password:'123456',
     }
@@ -29,10 +29,12 @@ router.post("/create", async (req, res) => {
     const userData = users[0];
 
     // Call Service to handle business logic
-    const user = await UserService.Signup(userData);
+    const result = await UserService.Signup(userData);
 
+    console.log("Resposta: ");
+    console.log(result);
     // Return a response to the client
-    return res.json(user);
+    return res.json(result);
 });
 
 module.exports = router;

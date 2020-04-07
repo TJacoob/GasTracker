@@ -4,8 +4,8 @@
 			<div class="container-fluid">
 				<div class="row justify-content-center">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<form>
-							<div class="form-group">
+						<form ref="loginForm">
+							<div class="form-group" v-on:click="scroll">
 								<input v-model="username" type="text" class="form-control" id="inputUsername" placeholder="Username">
 							</div>
 							<div class="form-group">
@@ -41,7 +41,17 @@
     export default {
         name: "login",
         components: { BaseLayout },
+		methods:{
+          	scroll(){
+          	    //console.log(e.target);
+                this.$nextTick(() => {
+                    this.$refs.loginForm.scrollLeft = 0;
+                });
+
+			},
+		},
     }
+
 </script>
 
 <style scoped>
