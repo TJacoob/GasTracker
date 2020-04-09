@@ -4,59 +4,55 @@ const jwt = require("jsonwebtoken");
 
 class UserService{
 
-    static async Signup(userRequest) {
+    static async generateToken(user){
+        // Create JWT Payload
+        const payload = {
+            id: user.id,
+            username: user.username,
+        };
 
-        let reply = {};
-        //const userRecord = await User.create(user);
-        //const userRecord = {nome:"Jacob"};
+        // Sign token
+        let token = await jwt.sign( payload, process.env.HASH_KEY, { expiresIn: 31556926 });
+        //console.log('Token: ' + token);
 
-        const newUser = new User({
-            username: userRequest.username.toLowerCase(),
-            email: userRequest.email,
-            password: userRequest.password,
-            date: new Date(),
-        });
-        // Hash password before saving in database
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newUser.password, salt, (err, hash) => {
-                if (err) throw err;
-                newUser.password = hash;
-                newUser
-                    .save()
-                    .then(
-                        //user => res.json(user)
-                        function (user) {
-                            // User created
-                            // Create JWT Payload
-                            const payload = {
-                                id: user.id,
-                                username: user.username,
-                            };
-                            // Sign token
-                            jwt.sign(
-                                payload,
-                                process.env.HASH_KEY,
-                                {
-                                    expiresIn: 31556926 // 1 year in seconds
-                                },
-                                (err, token) => {
-                                    reply = { status:'success', user: user, token:token };
-                                    console.log(reply);
-                                }
-                            );
-                            // Send Confirmation Email
-                            //emails.sendEmail(emails.createdAccount({username:user.username}), req.username);
-                        }
-                    )
-                    .catch(err => console.log(err));
-            });
-        });
-
-        return reply;
-
+        return token;
     }
 
+    static async hashPassword(password){
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
+        //console.log('Hash: '+hash);
 
+        return hash;
+    }
+
+    static async Signup(userRequest) {
+        try {
+
+            // TODO: Better Error Proof this
+
+            // Generate Hashed Password
+            const hashedPassword = await this.hashPassword(userRequest.password);
+
+            // Build User Object
+            const newUser = await new User({
+                username: userRequest.username.toLowerCase(),
+                email: userRequest.email,
+                //password: userRequest.password,
+                password: hashedPassword,
+                date: new Date(),
+            });
+
+            // Save user Object
+            const user = await newUser.save();
+
+            // Create JWT Token to send back as reply
+            const token = await this.generateToken(user);
+
+            return { 'username': user.username, 'email':user.email, 'token': token };
+
+        } catch (err) { console.log(err) }
+    }
 };
 
 
