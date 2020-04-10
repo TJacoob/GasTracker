@@ -17,9 +17,11 @@ require('./config/index.js');
 
 // Import Routes
 const users = require('./api/users');
+const profiles = require('./api/profiles');
 
 // Routes
 app.use('/api/users/', users);
+app.use('/api/profiles/', profiles);
 
 mongoose.connect('mongodb://127.0.0.1:27017/gastracker', { useNewUrlParser: true });
 const connection = mongoose.connection;

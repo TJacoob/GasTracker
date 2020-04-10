@@ -1,5 +1,5 @@
 // From https://dev.to/nedsoft/a-clean-approach-to-using-express-validator-8go
-const { body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
 const userValidationRules = () => {
     return [
         // username must not be empty
@@ -7,20 +7,8 @@ const userValidationRules = () => {
         body('email').not().isEmpty().withMessage("Email cannot be empty"),
         // password must be at least 6 chars long
         body('password').isLength({ min: 6 }).withMessage("Password must have at least 6 characters"),
+        // TODO: Confirm Password field, matching the Password field
     ]
-};
-
-const validate = (req, res, next) => {
-    const errors = validationResult(req);
-    if (errors.isEmpty()) {
-        return next()
-    }
-    const extractedErrors = [];
-    errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }));
-
-    return res.status(422).json({
-        errors: extractedErrors,
-    })
 };
 
 const userExists = (req, res, next) => {
@@ -42,7 +30,6 @@ const emailInUse = (req, res, next) => {
 
 module.exports = {
     userValidationRules,
-    validate,
     userExists,
     emailInUse,
 };

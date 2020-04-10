@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 
 class UserService{
 
+    // TODO: Change Password, Reset Password, Login
+
     static async generateToken(user){
         // Create JWT Payload
         const payload = {
@@ -29,8 +31,6 @@ class UserService{
     static async Signup(userRequest) {
         try {
 
-            // TODO: Better Error Proof this
-
             // Generate Hashed Password
             const hashedPassword = await this.hashPassword(userRequest.password);
 
@@ -49,10 +49,11 @@ class UserService{
             // Create JWT Token to send back as reply
             const token = await this.generateToken(user);
 
-            return { 'username': user.username, 'email':user.email, 'token': token };
+            return { 'success':true, 'username': user.username, 'email':user.email, 'token': token };
 
-        } catch (err) { console.log(err) }
+        } catch (err) { return { 'success':false, 'error': err } }
     }
+
 };
 
 
