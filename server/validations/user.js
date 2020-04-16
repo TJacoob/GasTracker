@@ -4,7 +4,7 @@ const userValidationRules = () => {
     return [
         // username must not be empty and have at least 6 characters
         body('username').not().isEmpty().withMessage("Username cannot be empty"),
-        body('username').not().isLength({ min: 4, max:128 }).withMessage("Username must have at least 4 characters"),
+        body('username').isLength({ min: 4, max:128 }).withMessage("Username must have at least 4 characters"),
         // email can't be empty
         body('email').not().isEmpty().withMessage("Email cannot be empty"),
         // password must be at least 6 chars long
@@ -22,7 +22,7 @@ const userValidationRules = () => {
 const userExists = (req, res, next) => {
     User.findOne({ username: req.body.username.toLowerCase() }).then(user => {
         if (user) {
-            return res.status(422).json({status: 'error', code: 422, message: 'Username already exists'});
+            return res.status(422).json({success: false, code: 422, error: 'Username already exists'});
         }
         else return next();
     });
@@ -31,7 +31,7 @@ const userExists = (req, res, next) => {
 const emailInUse = (req, res, next) => {
     User.findOne({ email: req.body.email }).then(user => {
         if (user) {
-            return res.status(422).json({status: 'error', code: 422, message: 'Email already in use'});
+            return res.status(422).json({success: false, code: 422, error: 'Email already in use'});
         } else return next();
     });
 };

@@ -3,4 +3,5 @@
 // config() will read your .env file, parse the contents, assign it to process.env.
 //dotenv.config();
 
-console.log("Configuration File Loaded");
+if ( process.env.NODE_ENV === 'development' )
+    console.log("Configuration File Loaded");

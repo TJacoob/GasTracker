@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 class UserService{
 
-    // TODO: Change Password, Reset Password, Login
+    // TODO: Reset Password
 
     static async generateToken(user){
         // Create JWT Payload
