@@ -28,6 +28,28 @@ class UserService{
         return hash;
     }
 
+    static async Login(formData) {
+        try {
+
+            let user ;
+            user = await User.findOne({$or: [
+                    {username: formData.login},
+                    {email: formData.login}
+                ]}).then(user => {
+                if (user) { return user }
+                else throw "No user found";
+            });
+
+            let result = await bcrypt.compare(formData.password, user.password);
+            if ( !result ){ return { 'success':false, 'error': 'Incorrect Password'} }
+
+            // Create JWT Token to send back as reply
+            const token = await this.generateToken(user);
+            return { 'success':true, 'username': user.username, 'email':user.email, 'token': token };
+
+        } catch (err) { return { 'success':false, 'error': err } }
+    }
+
     static async Signup(userRequest) {
         try {
 
@@ -50,6 +72,35 @@ class UserService{
             const token = await this.generateToken(user);
 
             return { 'success':true, 'username': user.username, 'email':user.email, 'token': token };
+
+        } catch (err) { return { 'success':false, 'error': err } }
+    }
+
+    static async ChangePassword(username, formData) {
+        try {
+
+            let user = await User.findOne({ username: username }).then(user => {
+                if (user) { return user }
+                else throw 'No User Found';
+            });
+
+            // Match Password
+            let result = await bcrypt.compare(formData.password, user.password);
+            if ( !result ){ return { 'success':false, 'error': 'Incorrect Password'} }
+
+            // Generate new Password Hash
+            const hashedPassword = await this.hashPassword(formData.new_password);
+
+            // Change user object
+            user.password = hashedPassword;
+
+            // Save user Object
+            const changedUser = await user.save();
+
+            // Create JWT Token to send back as reply
+            const token = await this.generateToken(changedUser);
+
+            return { 'success':true, 'username': changedUser.username, 'email':changedUser.email, 'token': token };
 
         } catch (err) { return { 'success':false, 'error': err } }
     }
