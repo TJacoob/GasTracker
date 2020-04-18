@@ -9,6 +9,7 @@ class ProfileService{
                 username: userdata.username,
                 name: userdata.username,
                 age:null,
+                //vehicles: [],
             });
 
             return await profile

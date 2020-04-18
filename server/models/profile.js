@@ -14,6 +14,11 @@ const ProfileSchema = new Schema({
     age:{
         type: Number,
     },
+    /*
+    vehicles: {
+        type: [String]
+    }
+    */
 });
 
 module.exports = Profile = mongoose.model("profiles", ProfileSchema);
@@ -22,4 +27,5 @@ Profile.allowEdit = {
     //username:0,
     name:1,
     age:1,
+    //vehicles:0,
 };

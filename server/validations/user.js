@@ -3,10 +3,13 @@ const { body } = require('express-validator');
 const userValidationRules = () => {
     return [
         // username must not be empty and have at least 6 characters
-        body('username').not().isEmpty().withMessage("Username cannot be empty"),
-        body('username').isLength({ min: 4, max:128 }).withMessage("Username must have at least 4 characters"),
-        // email can't be empty
-        body('email').not().isEmpty().withMessage("Email cannot be empty"),
+        body('username')
+            .not().isEmpty().withMessage("Username cannot be empty")
+            .isLength({ min: 4, max:128 }).withMessage("Username must have at least 4 characters"),
+        // email can't be empty and valid
+        body('email')
+            .not().isEmpty().withMessage("Email cannot be empty")
+            .not().isEmail().withMessage("Should be valid Email"),
         // password must be at least 6 chars long
         body('password').isLength({ min: 6, max:128 }).withMessage("Password must have at least 6 characters"),
         // Passwords must match
