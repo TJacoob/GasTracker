@@ -17,7 +17,7 @@ router.get("/own",
 
         const reply = await ProfileService.GetProfile(req.username);
         if (reply.success)
-            return res.json(reply.profile);
+            return res.json(reply);
         else
             return res.status(404);
 
