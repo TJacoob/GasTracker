@@ -56,20 +56,17 @@ router.get("/_:license",
 
 // @route POST api/vehicles/_:license/edit
 // @params [auth-token]
-// @desc Edit the vehicle of the logged user
+// @desc Edit the selected vehicle of the logged user
 // @access Logged Users
 router.post("/_:license/edit",
     authRequest,
-    //isOwner,
     async (req, res) => {
 
         let reply = await VehicleService.GetUserVehicle(req.username,req.params.license);
-        console.log(reply);
         if (!reply.success)
             return res.json(reply)
 
         reply = await VehicleService.EditVehicle(req.body, reply.vehicle);
-        console.log(reply);
         return res.json(reply);
 
     }
