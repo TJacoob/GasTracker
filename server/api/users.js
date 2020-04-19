@@ -55,9 +55,12 @@ router.post("/create",
 
         // Call Service to handle business logic
         const user = await UserService.Signup(userData);
+        if ( !user.success)
+            return res.json(user);
+
         const profile = await ProfileService.CreateProfile(userData);
-
-
+        if ( !profile.success)
+            return res.json(profile);
 
         // Return a response to the client
         return res.json(user);

@@ -9,7 +9,7 @@ const userValidationRules = () => {
         // email can't be empty and valid
         body('email')
             .not().isEmpty().withMessage("Email cannot be empty")
-            .not().isEmail().withMessage("Should be valid Email"),
+            .isEmail().withMessage("Should be valid Email"),
         // password must be at least 6 chars long
         body('password').isLength({ min: 6, max:128 }).withMessage("Password must have at least 6 characters"),
         // Passwords must match
