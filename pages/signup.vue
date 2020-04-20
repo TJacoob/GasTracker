@@ -61,7 +61,9 @@
 					password:this.password,
 					password_confirm:this.password_confirm,
 				})
-				console.log(this.username);
+				.then(()=>{
+				    this.$router.push({ name:'dashboard'});
+				})
 			},
         },
         data(){

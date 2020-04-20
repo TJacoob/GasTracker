@@ -19,17 +19,6 @@ router.post("/login",
     async (req, res) => {
         // Data validation is done on the middleware
 
-        //console.log("Valid Data");
-
-        /*
-        const userData = req.body;
-        //const userData = users[0];
-
-
-        const user = await UserService.Signup(userData);
-        const profile = await ProfileService.CreateProfile(userData);
-        */
-
         const reply = await UserService.Login(req.body);
 
         // Return a response to the client

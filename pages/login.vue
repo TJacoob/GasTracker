@@ -4,9 +4,9 @@
 			<div class="container-fluid">
 				<div class="row justify-content-center">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<form ref="loginForm">
+						<form ref="loginForm" @submit.prevent="login">
 							<div class="form-group" v-on:click="scroll">
-								<input v-model="username" type="text" class="form-control" id="inputUsername" placeholder="Username">
+								<input v-model="username" type="text" class="form-control" id="inputUsername" placeholder="Username ou Email">
 							</div>
 							<div class="form-group">
 								<input v-model="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
@@ -21,7 +21,7 @@
 				<div class="row no-gutters">
 					<div class="col-12">
 						<div class="buttons-displacement">
-							<div class="btn-main">
+							<div class="btn-main" @click="login">
 								<span>Entrar</span>
 							</div>
 							<span class="f-gray lh-sm">
@@ -43,13 +43,26 @@
         components: { BaseLayout },
 		methods:{
           	scroll(){
-          	    //console.log(e.target);
                 this.$nextTick(() => {
                     this.$refs.loginForm.scrollLeft = 0;
                 });
-
 			},
+            login() {
+                this.$store.dispatch('login',{
+                    login: this.username,
+                    password: this.password,
+                })
+                    .then(()=>{
+                        this.$router.push({ name:'dashboard'});
+                    })
+            },
 		},
+        data(){
+            return {
+                username:'',
+                password:'',
+            }
+        },
     }
 
 </script>

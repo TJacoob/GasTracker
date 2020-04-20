@@ -1,12 +1,15 @@
-const qs = require('querystring')
+const qs = require('querystring');
 
 export const state = () => ({
-    authUser: null;
+    authUser: null
 })
 
 export const mutations = {
     SET_USER (state, user) {
-        state.authUser = user;
+        state.authUser = {username:user.username, token:user.token};
+        //localStorage.setItem('authUser', JSON.stringify(state.authUser));
+        // TODO: Persist state
+        this.$axios.defaults.headers.common['x-access-token'] = user.token;
     }
 }
 
@@ -15,9 +18,8 @@ export const actions = {
         try {
             await this.$axios.post('/api/users/create', qs.stringify(credentials), {headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
                 .then((res) => {
-                    console.log(res);
-                    if (res.status === 200) {
-                        commit('SET_USER', res.data)
+                    if (res.status === 200 && res.data.success) {
+                        commit('SET_USER', res.data);
                     }
                 })
         } catch (error) {
@@ -27,13 +29,22 @@ export const actions = {
             throw error
         }
     },
-    /*
-    register({commit}, credentials){
-        return axios.post('/api/users/create', credentials).then(({data})=>{
-            console.log(data);
-        })
-    }
-    */
+    async login ({ commit }, credentials) {
+        try {
+            await this.$axios.post('/api/users/login', qs.stringify(credentials), {headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
+                .then((res) => {
+                    if (res.status === 200 && res.data.success) {
+                        commit('SET_USER', res.data);
+                    }
+                })
+        } catch (error) {
+            if (error.response) {
+                throw new Error(error.response)
+            }
+            throw error
+        }
+    },
+
     /*
     // nuxtServerInit is called by Nuxt.js before server-rendering every page
     nuxtServerInit ({ commit }, { req }) {
@@ -58,4 +69,10 @@ export const actions = {
         commit('SET_USER', null)
     }
     */
+}
+
+export const getters = {
+    loggedIn (state) {
+        return !!state.authUser;
+    }
 }
