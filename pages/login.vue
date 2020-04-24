@@ -37,6 +37,7 @@
 
 <script>
     import BaseLayout from '../layout/default';
+    const qs = require('querystring');
 
     export default {
         name: "login",
@@ -47,15 +48,24 @@
                     this.$refs.loginForm.scrollLeft = 0;
                 });
 			},
-            login() {
-                this.$store.dispatch('login',{
+			login(){
+          	    let user = {
                     login: this.username,
                     password: this.password,
+				};
+          	    this.$auth.loginWith('local',{
+          	        data: qs.stringify(user),
+				})
+				.then((res) => {
+                    this.$auth.setUser({
+						username:res.data.username,
+						email:res.data.email,
+					});
+                    this.$router.push({name:'dashboard'});
                 })
-                    .then(()=>{
-                        this.$router.push({ name:'dashboard'});
-                    })
-            },
+				// TODO: Throw Errors
+			}
+
 		},
         data(){
             return {

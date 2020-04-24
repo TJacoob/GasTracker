@@ -17,12 +17,30 @@ router.post("/login",
     //userExists,
     //emailInUse,
     async (req, res) => {
+
         // Data validation is done on the middleware
 
         const reply = await UserService.Login(req.body);
 
         // Return a response to the client
         return res.json(reply);
+    }
+);
+
+// @route GET api/users/own
+// @params [auth-token]
+// @desc Get Logged User
+// @access Public
+router.get("/own",
+    //loginValidationRules(),
+    //validate,
+    //userExists,
+    //emailInUse,
+    async (req, res) => {
+        // This exists because the nuxt-auth module on the frontend requires a call to retrieve user info using only
+        // the token, as with do not store it, it's not possible to retrieve information just with the token
+        // Return a response to the client
+        return res.json(200);
     }
 );
 

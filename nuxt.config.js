@@ -42,6 +42,7 @@ module.exports = {
     buildModules: [
         // https://github.com/nuxt-community/dotenv-module
         '@nuxtjs/dotenv',
+        '@nuxtjs/auth',
     ],
     /*
     ** Nuxt.js modules
@@ -61,6 +62,26 @@ module.exports = {
     ** See https://axios.nuxtjs.org/options
     */
     axios: {
+        common: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+    },
+    /*
+    ** Auth Options
+    */
+    auth: {
+        strategies: {
+            local: {
+                endpoints: {
+                    login: { url: '/api/users/login', method: 'post', propertyName: 'token', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
+                    //logout: { url: '/api/users/logout', method: 'post' },
+                    //user: { url: '/api/users/own', method: 'get', propertyName: false }
+                },
+                // tokenRequired: true,
+                tokenType: '',
+                autoFetchUser: false,
+            }
+        }
     },
     /*
     ** Build configuration

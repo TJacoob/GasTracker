@@ -50,6 +50,23 @@ class UserService{
         } catch (err) { return { 'success':false, 'error': err } }
     }
 
+    static async getUser(formData) {
+        try {
+
+            let user ;
+            user = await User.findOne({$or: [
+                    {username: formData.login},
+                    {email: formData.login}
+                ]}).then(user => {
+                if (user) { return user }
+                else throw "No user found";
+            });
+
+            return { 'success':true, 'username': user.username, 'email':user.email };
+
+        } catch (err) { return { 'success':false, 'error': err } }
+    }
+
     static async Signup(userRequest) {
         try {
 
