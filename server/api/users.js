@@ -28,19 +28,40 @@ router.post("/login",
 );
 
 // @route GET api/users/own
-// @params [auth-token]
-// @desc Get Logged User
+// @params [Authorization token]
+// @desc Route Specific for the Nuxt-auth module to get the user, using the autorization header
 // @access Public
 router.get("/own",
     //loginValidationRules(),
     //validate,
     //userExists,
-    //emailInUse,
     async (req, res) => {
-        // This exists because the nuxt-auth module on the frontend requires a call to retrieve user info using only
-        // the token, as with do not store it, it's not possible to retrieve information just with the token
+        // TODO: add "params" validation
+
+        // This exists because the nuxt-auth module on the frontend requires a call to retrieve user info using only the token
+        const reply = await UserService.getUserByToken(req.headers.authorization);
+
         // Return a response to the client
-        return res.json(200);
+        return res.json(reply);
+    }
+);
+
+// @route DELETE api/users/logout
+// @params [Authorization token]
+// @desc Delete user token
+// @access Public
+router.delete("/logout",
+    //loginValidationRules(),
+    //validate,
+    //userExists,
+    async (req, res) => {
+        // TODO: add "params" validation
+
+        // This exists because the nuxt-auth module on the frontend requires a call to retrieve user info using only the token
+        const reply = await UserService.logout(req.headers.authorization);
+
+        // Return a response to the client
+        return res.json(reply);
     }
 );
 

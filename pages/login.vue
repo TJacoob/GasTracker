@@ -41,6 +41,7 @@
 
     export default {
         name: "login",
+		// middleware: 'auth',
         components: { BaseLayout },
 		methods:{
           	scroll(){
@@ -57,10 +58,13 @@
           	        data: qs.stringify(user),
 				})
 				.then((res) => {
+				    /*
                     this.$auth.setUser({
 						username:res.data.username,
 						email:res.data.email,
+						token:res.data.token,
 					});
+					*/
                     this.$router.push({name:'dashboard'});
                 })
 				// TODO: Throw Errors

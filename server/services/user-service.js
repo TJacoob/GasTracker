@@ -43,15 +43,21 @@ class UserService{
             let result = await bcrypt.compare(formData.password, user.password);
             if ( !result ){ return { 'success':false, 'error': 'Incorrect Password'} }
 
-            // Create JWT Token to send back as reply
+            // Create JWT Token, save to user object and send back as reply (allows fetching user with only a token)
             const token = await this.generateToken(user);
-            return { 'success':true, 'username': user.username, 'email':user.email, 'token': token };
+
+            user.token = token;
+            user = await user.save();
+
+            return { 'success':true, 'username': user.username, 'email':user.email, 'token': user.token };
 
         } catch (err) { return { 'success':false, 'error': err } }
     }
 
     static async getUser(formData) {
         try {
+
+            // Não faz verificações de Password (watch out)!!
 
             let user ;
             user = await User.findOne({$or: [
@@ -63,6 +69,42 @@ class UserService{
             });
 
             return { 'success':true, 'username': user.username, 'email':user.email };
+
+        } catch (err) { return { 'success':false, 'error': err } }
+    }
+
+    static async getUserByToken(token) {
+        try {
+
+            let user ;
+            user = await User.findOne({token: token})
+                .then(user => {
+                    if (user) { return user }
+                    else throw "No user found";
+                });
+
+            return { 'success':true, 'username': user.username, 'email':user.email };
+
+        } catch (err) { return { 'success':false, 'error': err } }
+    }
+
+    static async logout(token) {
+        try {
+
+            console.log(token);
+
+            let user ;
+            user = await User.findOne({token: token})
+                .then(user => {
+                    if (user) { return user }
+                    else throw "No user found";
+                });
+
+            // Delete user token
+            user.token = null;
+            await user.save();
+
+            return { 'success':true };
 
         } catch (err) { return { 'success':false, 'error': err } }
     }
@@ -80,15 +122,18 @@ class UserService{
                 //password: userRequest.password,
                 password: hashedPassword,
                 date: new Date(),
+                token: null,
             });
+
+            // Create JWT Token and store to the user
+            const token = await this.generateToken(newUser);
+            newUser.token = token;
 
             // Save user Object
             const user = await newUser.save();
 
-            // Create JWT Token to send back as reply
-            const token = await this.generateToken(user);
 
-            return { 'success':true, 'username': user.username, 'email':user.email, 'token': token };
+            return { 'success':true, 'username': user.username, 'email':user.email, 'token': user.token };
 
         } catch (err) { return { 'success':false, 'error': err } }
     }
@@ -111,13 +156,14 @@ class UserService{
             // Change user object
             user.password = hashedPassword;
 
+            // Create JWT Token and store in user
+            const token = await this.generateToken(user);
+            user.token = token;
+
             // Save user Object
             const changedUser = await user.save();
 
-            // Create JWT Token to send back as reply
-            const token = await this.generateToken(changedUser);
-
-            return { 'success':true, 'username': changedUser.username, 'email':changedUser.email, 'token': token };
+            return { 'success':true, 'username': changedUser.username, 'email':changedUser.email, 'token': changedUser.token };
 
         } catch (err) { return { 'success':false, 'error': err } }
     }

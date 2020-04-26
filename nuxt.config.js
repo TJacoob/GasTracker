@@ -2,7 +2,7 @@ require('dotenv').config();
 
 module.exports = {
     server: {
-        port: 3000, // default: 3000
+        port: 3001, // default: 3000
         host: '0.0.0.0' // default: localhost
     },
     mode: 'universal',
@@ -42,7 +42,6 @@ module.exports = {
     buildModules: [
         // https://github.com/nuxt-community/dotenv-module
         '@nuxtjs/dotenv',
-        '@nuxtjs/auth',
     ],
     /*
     ** Nuxt.js modules
@@ -52,6 +51,7 @@ module.exports = {
          'bootstrap-vue/nuxt',
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
+        '@nuxtjs/auth',
     ],
     bootstrapVue: {
         bootstrapCSS: false,
@@ -65,6 +65,9 @@ module.exports = {
         common: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
+        baseURL: 'http://0.0.0.0:3001',
+        proxyHeaders: false,
+        credentials: false
     },
     /*
     ** Auth Options
@@ -74,14 +77,19 @@ module.exports = {
             local: {
                 endpoints: {
                     login: { url: '/api/users/login', method: 'post', propertyName: 'token', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
-                    //logout: { url: '/api/users/logout', method: 'post' },
-                    //user: { url: '/api/users/own', method: 'get', propertyName: false }
+                    logout: { url: '/api/users/logout', method: 'delete' },
+                    user: { url: '/api/users/own', method: 'get', propertyName: false },
                 },
                 // tokenRequired: true,
                 tokenType: '',
-                autoFetchUser: false,
+                autoFetchUser: true,
             }
-        }
+        },
+        redirect: {
+            home: '/dashboard',
+            login: '/login',
+            logout: '/login',
+        },
     },
     /*
     ** Build configuration
@@ -97,4 +105,5 @@ module.exports = {
             '~/server/index.js'
         ],
     },
+
 }
