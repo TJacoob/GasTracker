@@ -43,6 +43,7 @@
 
 <script>
     import BaseLayout from '../layout/default';
+    const qs = require('querystring');
 
     export default {
         name: "signup",
@@ -54,17 +55,28 @@
                     this.$refs.signupForm.scrollLeft = 0;
                 });
             },
-			register() {
-              	this.$store.dispatch('register',{
-              	    username: this.username,
-					email:this.email,
-					password:this.password,
-					password_confirm:this.password_confirm,
+            register(){
+                let user = {
+                    username: this.username,
+                    email: this.email,
+                    password: this.password,
+                    password_confirm: this.password_confirm,
+                };
+                this.$axios.post('/api/users/create',
+					qs.stringify(user),
+					{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}
+				)
+				.then(res => {
+                    this.$auth.loginWith('local',{
+                        data: qs.stringify({login:user.username, password:user.password}),
+                    })
+					.then((res) => {
+						this.$router.push({name:'dashboard'});
+					})
 				})
-				.then(()=>{
-				    this.$router.push({ name:'dashboard'});
-				})
-			},
+
+                // TODO: Throw Errors
+            }
         },
         data(){
 			return {

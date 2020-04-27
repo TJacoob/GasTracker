@@ -91,8 +91,6 @@ class UserService{
     static async logout(token) {
         try {
 
-            console.log(token);
-
             let user ;
             user = await User.findOne({token: token})
                 .then(user => {
