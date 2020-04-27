@@ -35,6 +35,7 @@ module.exports = {
     */
     plugins: [
         { src: '~/plugins/windowHeight.js', mode: 'client' },
+        {src: '~/plugins/vuelidate'},
     ],
     /*
     ** Nuxt.js dev-modules

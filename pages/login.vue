@@ -6,10 +6,22 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
 						<form ref="loginForm" @submit.prevent="login">
 							<div class="form-group" v-on:click="scroll">
-								<input v-model="username" type="text" class="form-control" id="inputUsername" placeholder="Username ou Email">
+								<input v-model="username"
+									   type="text"
+									   class="form-control "
+									   :class="{'has-error':this.$v.username.$invalid && this.submitted}"
+									   id="inputUsername"
+									   placeholder="Username ou Email"
+								>
 							</div>
 							<div class="form-group">
-								<input v-model="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+								<input v-model="password"
+									   type="password"
+									   class="form-control "
+									   :class="{'has-error':this.$v.password.$invalid && this.submitted}"
+									   id="inputPassword"
+									   placeholder="Password"
+								>
 							</div>
 						</form>
 					</div>
@@ -37,7 +49,9 @@
 
 <script>
     import BaseLayout from '../layout/default';
+    import { required } from 'vuelidate/lib/validators';
     const qs = require('querystring');
+
 
     export default {
         name: "login",
@@ -50,26 +64,40 @@
                 });
 			},
 			login(){
-          	    let user = {
-                    login: this.username,
-                    password: this.password,
-				};
-          	    this.$auth.loginWith('local',{
-          	        data: qs.stringify(user),
-				})
-				.then((res) => {
-                    this.$router.push({name:'dashboard'});
-                })
-				// TODO: Throw Errors
+          	    if (this.$v.$invalid)
+          	        this.submitted=true;
+          	    else{
+                    let user = {
+                        login: this.username,
+                        password: this.password,
+                    };
+                    this.$auth.loginWith('local',{
+                        data: qs.stringify(user),
+                    })
+                        .then((res) => {
+                            this.$router.push({name:'dashboard'});
+                        })
+                    // TODO: Throw Server Errors
+				}
+
 			}
 
 		},
         data(){
             return {
+                submitted: false,
                 username:'',
                 password:'',
             }
         },
+        validations: {
+            username: {
+                required,
+            },
+            password: {
+                required,
+            }
+        }
     }
 
 </script>
