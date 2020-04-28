@@ -65,6 +65,9 @@
 									Passwords should be the same
 								</small>
 							</div>
+							<div class="alert alert-danger" role="alert" v-if="this.error!==null">
+								{{error}}
+							</div>
 						</form>
 					</div>
 				</div>
@@ -118,17 +121,18 @@
                         qs.stringify(user),
                         {headers:{'Content-Type': 'application/x-www-form-urlencoded'}}
                     )
-                        .then(res => {
-                            this.$auth.loginWith('local',{
-                                data: qs.stringify({login:user.username, password:user.password}),
-                            })
-                                .then((res) => {
-                                    this.$router.push({name:'dashboard'});
-                                })
-                        })
+					.then(res => {
+						this.$auth.loginWith('local',{
+							data: qs.stringify({login:user.username, password:user.password}),
+						})
+						.then((res) => {
+							this.$router.push({name:'dashboard'});
+						})
+					})
+					.catch(error => {
+						this.error = error.response.data.error;
+					})
                 }
-
-                // TODO: Throw Server Errors
             }
         },
         data(){
@@ -140,6 +144,7 @@
 				password_confirm:'',
 				// Form Controllers
                 submitted: false,
+				error: null,
 			}
         },
         validations: {

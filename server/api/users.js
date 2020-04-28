@@ -21,6 +21,8 @@ router.post("/login",
         // Data validation is done on the middleware
 
         const reply = await UserService.Login(req.body);
+        if (!reply.success)
+            return res.status(404).json(reply);
 
         // Return a response to the client
         return res.json(reply);

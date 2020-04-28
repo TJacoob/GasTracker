@@ -30,3 +30,51 @@
 	}
   }
 }
+
+.btn-square{
+  display: block;
+  background-color: $white;
+  color: $dark;
+  border: 3px solid $primary;
+  border-radius: 1.15rem;
+  padding: 0;
+  margin-bottom: .5rem;
+  position: relative;
+  min-height: 50px;
+  max-height: 75px;
+  @include rfs(2rem);
+  @include box-shadow(2px 2px 6px 0px rgba($black,0.3));
+  @include transition($transition-base);
+  &:not(.disabled){
+    @include hover-focus-active{
+      color: $primary;
+      text-decoration: none;
+      @include box-shadow(2px 2px 6px 0px rgba($black,0.5));
+      @include transition($transition-base);
+    }
+  }
+  &:after{
+    content:'';
+    display:block;
+    padding-top:100%;
+  }
+  .btn-icon{
+    position:absolute;
+    top:50%;
+    left:50%;
+    @include translate(-50%,-50%);
+  }
+  &.disabled{
+    border: 1px solid $gray;
+    .btn-icon{
+      color: $gray;
+    }
+  }
+}
+
+
+@include media-breakpoint-only(xs) {
+  .btn-square{
+    @include rfs(4.25rem);
+  }
+}

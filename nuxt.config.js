@@ -53,6 +53,7 @@ module.exports = {
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
         '@nuxtjs/auth',
+        'nuxt-fontawesome',
     ],
     bootstrapVue: {
         bootstrapCSS: false,
@@ -104,6 +105,17 @@ module.exports = {
         serverMiddleware: [
             // API middleware
             '~/server/index.js'
+        ],
+    },
+    /*
+    ** Font Awesome Config
+    */
+    fontawesome: {
+        imports: [
+            {
+                set: '@fortawesome/free-solid-svg-icons',
+                icons: ['fas']
+            },
         ],
     },
 

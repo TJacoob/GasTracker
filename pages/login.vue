@@ -23,6 +23,9 @@
 									   placeholder="Password"
 								>
 							</div>
+							<div class="alert alert-danger" role="alert" v-if="this.error!==null">
+								{{error}}
+							</div>
 						</form>
 					</div>
 				</div>
@@ -64,6 +67,7 @@
                 });
 			},
 			login(){
+          	    this.error = null;
           	    if (this.$v.$invalid)
           	        this.submitted=true;
           	    else{
@@ -74,10 +78,12 @@
                     this.$auth.loginWith('local',{
                         data: qs.stringify(user),
                     })
-                        .then((res) => {
-                            this.$router.push({name:'dashboard'});
-                        })
-                    // TODO: Throw Server Errors
+					.then((res) => {
+						this.$router.push({name:'dashboard'});
+					})
+					.catch(error => {
+						this.error = error.response.data.error;
+					})
 				}
 
 			}
@@ -85,9 +91,12 @@
 		},
         data(){
             return {
-                submitted: false,
+                // Form Data
                 username:'',
                 password:'',
+                // Form Controllers
+                submitted: false,
+                error: null,
             }
         },
         validations: {
