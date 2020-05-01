@@ -126,6 +126,8 @@
 							data: qs.stringify({login:user.username, password:user.password}),
 						})
 						.then((res) => {
+                            const token = this.$auth.getToken('local');
+                            this.$axios.setHeader('x-access-token', token);
 							this.$router.push({name:'dashboard'});
 						})
 					})

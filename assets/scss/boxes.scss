@@ -2,6 +2,7 @@
   background-color: $light-gray;
   position: relative;
   width: 100%;
+
 }
 
 .content{
@@ -38,6 +39,7 @@
 @include media-breakpoint-up(sm) {
   .navigation{
 	height: 100vh;
+	overflow: hidden;
 	.buttons-center{
 	  position: absolute;
 	  top: 50%;

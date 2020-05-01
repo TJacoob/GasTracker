@@ -31,13 +31,6 @@ module.exports = {
         '~/assets/scss/app.scss'
     ],
     /*
-    ** Plugins to load before mounting the App
-    */
-    plugins: [
-        { src: '~/plugins/windowHeight.js', mode: 'client' },
-        {src: '~/plugins/vuelidate'},
-    ],
-    /*
     ** Nuxt.js dev-modules
     */
     buildModules: [
@@ -54,6 +47,14 @@ module.exports = {
         '@nuxtjs/axios',
         '@nuxtjs/auth',
         'nuxt-fontawesome',
+    ],
+    /*
+    ** Plugins to load before mounting the App
+    */
+    plugins: [
+        { src: '~/plugins/windowHeight.js', mode: 'client' },
+        {src: '~/plugins/vuelidate'},
+        {src: '~/plugins/axios', mode: 'client'},
     ],
     bootstrapVue: {
         bootstrapCSS: false,

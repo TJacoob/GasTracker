@@ -83,7 +83,7 @@ class UserService{
                     else throw "No user found";
                 });
 
-            return { 'success':true, 'username': user.username, 'email':user.email };
+            return { 'username': user.username, 'email':user.email, 'token':token };
 
         } catch (err) { return { 'success':false, 'error': err } }
     }

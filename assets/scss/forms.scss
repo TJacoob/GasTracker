@@ -8,13 +8,15 @@
 	opacity: 1;
 	@include transition($transition-base);
   };
-  @include hover-focus-active{
-	border-bottom: 1px solid $black;
-	outline: none;
-	@include box-shadow(none);
-	@include placeholder{
-	  color: $black;
-	  @include transition($transition-base);
+  &:not(.disabled){
+	@include hover-focus-active{
+	  border-bottom: 1px solid $black;
+	  outline: none;
+	  @include box-shadow(none);
+	  @include placeholder{
+		color: $black;
+		@include transition($transition-base);
+	  }
 	}
   }
   &.has-error{

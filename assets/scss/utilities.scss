@@ -3,3 +3,12 @@
   margin-right: -100%;
   text-align: center;
 }
+
+.row{
+  &.small-gutters{
+	[class*="col-"] {
+	  padding-right: $grid-gutter-width / 3;
+	  padding-left: $grid-gutter-width / 3;
+	}
+  }
+}

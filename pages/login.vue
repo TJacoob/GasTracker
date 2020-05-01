@@ -79,7 +79,10 @@
                         data: qs.stringify(user),
                     })
 					.then((res) => {
+					    const token = this.$auth.getToken('local');
+                        this.$axios.setHeader('x-access-token', token);
 						this.$router.push({name:'dashboard'});
+
 					})
 					.catch(error => {
 						this.error = error.response.data.error;

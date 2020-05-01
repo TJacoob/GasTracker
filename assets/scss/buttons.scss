@@ -29,6 +29,22 @@
 	  border: 1px solid $gray;
 	}
   }
+
+  &.btn-cancel{
+	display: inline;
+	padding: .5rem 1.25rem;
+	@include rfs(.95rem);
+	color: $white;
+	background-color: $danger;
+	border: 1px solid $danger;
+	@include box-shadow(2px 2px 6px 0px rgba($black,0.3));
+	@include transition($transition-base);
+	@include hover-focus-active{
+	  background-color: lighten($danger,5);
+	  @include box-shadow(2px 2px 6px 0px rgba($black,0.5));
+	  @include transition($transition-base);
+	}
+  }
 }
 
 .btn-square{
@@ -40,8 +56,8 @@
   padding: 0;
   margin-bottom: .5rem;
   position: relative;
-  min-height: 50px;
-  max-height: 75px;
+  width: 100%;
+  max-width: 4.5rem;
   @include rfs(2rem);
   @include box-shadow(2px 2px 6px 0px rgba($black,0.3));
   @include transition($transition-base);
@@ -50,7 +66,6 @@
       color: $primary;
       text-decoration: none;
       @include box-shadow(2px 2px 6px 0px rgba($black,0.5));
-      @include transition($transition-base);
     }
   }
   &:after{
