@@ -9,7 +9,7 @@ const vehicleValidationRules = () => {
 
         body('name')
             .not().isEmpty().withMessage("Name cannot be empty")
-            .isLength({ max: 512 }).withMessage("Name is too big."),
+            .isLength({ max: 128 }).withMessage("Name is too big."),
 
         body('brand')
             .not().isEmpty().withMessage("Brand cannot be empty")

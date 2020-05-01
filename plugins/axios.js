@@ -3,8 +3,13 @@ export default function ({store, app: { $axios }}) {
         'post'
     ]);
 
-    const token = store.state.auth.user.token;
-    $axios.setHeader('x-access-token', token);
+    const user = store.state.auth.user;
+    if ( user )
+    {
+        const token = user.token;
+        if ( token )
+            $axios.setHeader('x-access-token', token);
+    }
 
     $axios.onRequest(config => {
         console.log('Making request to ' + config.url)

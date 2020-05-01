@@ -22,7 +22,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row small-gutters" v-if="age!==null || this.editing">
+						<div class="row small-gutters mb-3" v-if="age!==null || this.editing">
 							<div class="col-auto">
 								<font-awesome-icon icon="user" class="btn-icon fa-2x"/>
 							</div>
@@ -66,6 +66,16 @@
 								<div class="btn-main btn-cancel mx-auto" @click="cancel">
 									<span>Cancelar</span>
 								</div>
+							</div>
+						</div>
+						<div class="row mt-5 justify-content-center text-center">
+							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
+								<nuxt-link to="/dashboard">
+									<div class="btn-square">
+										<font-awesome-icon icon="home" class="btn-icon"/>
+									</div>
+									<span class="text-overflow-center">Homepage</span>
+								</nuxt-link>
 							</div>
 						</div>
 					</div>

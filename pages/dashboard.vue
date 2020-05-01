@@ -31,11 +31,11 @@
 							</div>
 							<div class="w-100 d-none d-sm-block d-lg-none mb-sm-3"></div>
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4">
-								<nuxt-link to="/login" :disabled="disable">
-									<div class="btn-square disabled">
-										<font-awesome-icon icon="gas-pump" class="btn-icon"/>
+								<nuxt-link to="/vehicles">
+									<div class="btn-square">
+										<font-awesome-icon icon="car" class="btn-icon"/>
 									</div>
-									<span class="text-overflow-center">Abastecimentos</span>
+									<span class="text-overflow-center">Carros</span>
 								</nuxt-link>
 							</div>
 							<div class="w-100 d-none d-sm-block d-lg-none mb-sm-3"></div>

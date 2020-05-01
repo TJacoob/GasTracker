@@ -22,7 +22,7 @@
 	  margin-top: -30px;
 	}
 	&.short{
-	  height: calc(var(--vh, 1vh) * 30);
+	  height: calc(var(--vh, 1vh) * 15);
 	}
   }
   .content{
@@ -32,7 +32,8 @@
 	position: absolute;
 	width: 100%;
 	padding: 35px 0;
-	&.align-end{ bottom: 0 }
+	overflow-y: scroll;
+	&.align-end{ bottom: .5rem }
 	&.align-top{ top: 0 }
   }
 }

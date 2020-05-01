@@ -1,0 +1,10 @@
+.vehicle-card{
+  border: 1px solid $gray;
+  border-radius: 1rem;
+  padding: .6rem 1rem;
+  &:not(:last-of-type){ margin-bottom: 1rem }
+  span{ display: block }
+  .name{
+	font-weight: $font-weight-bold;
+  }
+}
