@@ -87,9 +87,61 @@
   }
 }
 
+.btn-option{
+  display: block;
+  background-color: $white;
+  color: $dark;
+  border: 3px solid $gray;
+  border-radius: 1.15rem;
+  padding: 0;
+  margin-bottom: .5rem;
+  position: relative;
+  width: 100%;
+  max-width: 4.5rem;
+  cursor: pointer;
+  @include rfs(2rem);
+  @include box-shadow(2px 2px 6px 0px rgba($black,0.3));
+  @include transition($transition-base);
+  &:not(.active){
+	@include hover-focus-active{
+	  text-decoration: none;
+	  @include box-shadow(2px 2px 6px 0px rgba($black,0.5));
+	}
+  }
+  &:after{
+	content:'';
+	display:block;
+	padding-top:100%;
+  }
+  .btn-icon{
+	position:absolute;
+	top:50%;
+	left:50%;
+	@include translate(-50%,-50%);
+  }
+  &.active{
+	border: 3px solid $primary;
+  }
+  &.no-icon{
+    margin-bottom: 0;
+    border-width: 2px;
+    max-width: unset;
+    display: block;
+    width: 100%;
+    padding: .4rem 1rem;
+    @include rfs(1rem);
+    &:after{ display:none }
+  }
+}
+
+
+
 
 @include media-breakpoint-only(xs) {
   .btn-square{
     @include rfs(4.25rem);
+  }
+  .btn-option{
+	@include rfs(4.25rem);
   }
 }

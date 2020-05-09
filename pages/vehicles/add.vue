@@ -4,7 +4,7 @@
 			<div class="container-fluid">
 				<div class="row justify-content-center">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<form ref="signupForm" @submit.prevent="submit">
+						<form ref="vehicleAddForm" @submit.prevent="submit">
 							<div class="form-group">
 								<input v-model="license"
 									   type="text"
@@ -92,25 +92,40 @@
 								</small>
 
 							</div>
-							<div class="form-group">
+							<div class="form-group mt-4">
 								<div class="row text-center">
 									<div class="col-4">
-										<div class="btn-square">
+										<div class="btn-option"
+											 @click="selectFuel('Gasóleo')"
+											 :class="{'active':this.fuel==='Gasóleo'}"
+										>
 											<font-awesome-icon icon="gas-pump" class="btn-icon"/>
 										</div>
 										<span class="text-overflow-center">Gasóleo</span>
 									</div>
 									<div class="col-4">
-										<div class="btn-square">
+										<div class="btn-option"
+											 @click="selectFuel('Gasolina 98')"
+											 :class="{'active':this.fuel==='Gasolina 98'}"
+										>
 											<font-awesome-icon icon="gas-pump" class="btn-icon"/>
 										</div>
 										<span class="text-overflow-center">Gasolina 98</span>
 									</div>
 									<div class="col-4">
-										<div class="btn-square">
+										<div class="btn-option"
+											 @click="selectFuel('Gasolina 95')"
+											 :class="{'active':this.fuel==='Gasolina 95'}"
+										>
 											<font-awesome-icon icon="gas-pump" class="btn-icon"/>
 										</div>
 										<span class="text-overflow-center">Gasolina 95</span>
+									</div>
+									<div class="col-12 mt-2">
+										<small class="error-message"
+											   v-if="!this.$v.fuel.required && this.submitted">
+											Escolha um Combustível
+										</small>
 									</div>
 								</div>
 							</div>
@@ -181,22 +196,30 @@
                 if (this.$v.$invalid)
                     this.submitted=true;
                 else {
-                    console.log("here");
                     let vehicle = {
-
+                        license:this.license,
+                        name:this.name,
+                        brand:this.brand,
+                        model:this.model,
+                        year:this.year,
+                        kilometers:this.kilometers,
+                        fuel:this.fuel,
                     };
-                    this.$axios.post('/api/users/create',
+                    this.$axios.post('/api/vehicles/add',
                         qs.stringify(vehicle),
                         {headers:{'Content-Type': 'application/x-www-form-urlencoded'}}
                     )
 					.then(res => {
-						console.log(res);
+                        this.$router.push({name:'vehicles'});
 					})
 					.catch(error => {
 						this.error = error.response.data.error;
 					})
                 }
-            }
+            },
+			selectFuel(fuel){
+                this.fuel = fuel;
+			},
 		},
         validations: {
             license: {
@@ -225,6 +248,9 @@
                 numeric,
                 between: between(0, 2000000),
             },
+			fuel: {
+                required,
+			}
         }
     }
 </script>

@@ -13,8 +13,8 @@
 									<font-awesome-icon icon="car" class="fa-2x"/>
 								</div>
 								<div class="col p-0 align-self-center">
-									<span>00-AA-00</span>
-									<span class="font-weight-bold">Opel Corsa</span>
+									<span>{{vehicle.license}}</span>
+									<span class="font-weight-bold">{{vehicle.name}}</span>
 								</div>
 								<div class="col-auto align-self-center text-center">
 									<span>Consumo:</span>

@@ -16,9 +16,11 @@
 				<div class="row no-gutters">
 					<div class="col-12">
 						<div class="buttons-displacement">
-							<div class="btn-main disabled" >
-								<span>Abastecer</span>
-							</div>
+							<nuxt-link to="/refuels/add">
+								<div class="btn-main" >
+									<span>Abastecer</span>
+								</div>
+							</nuxt-link>
 						</div>
 						<div class="row mt-5 justify-content-center text-center">
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">

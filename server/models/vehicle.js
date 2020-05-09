@@ -30,7 +30,7 @@ const VehicleSchema = new Schema({
     },
     fuel:{
         type: String,
-        allowedValues: ["Gasoline 95", "Gasoline 98", "Diesel"],
+        allowedValues: ["Gasolina 95", "Gasolina 98", "Gasóleo"],
     },
     consumption:{
         type: Number,
