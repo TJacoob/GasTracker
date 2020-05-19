@@ -4,13 +4,17 @@
 			<div class="container-fluid">
 				<div class="row justify-content-center">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<VueSlickCarousel :arrows="true" :dots="false">
-							<div>1</div>
-							<div>2</div>
-							<div>3</div>
-							<div>4</div>
-							
-						</VueSlickCarousel>
+						<div v-if="vehicles.length > 0">
+							<VueSlickCarousel :arrows="true" :dots="false">
+								<div v-for="vehicle in vehicles" class="dashboard-vehicle">
+									<img src="~/assets/images/samplecar.png" class="img-fluid px-3" >
+									<p class="">{{vehicle.name}}</p>
+								</div>
+							</VueSlickCarousel>
+						</div>
+						<div v-else>
+							<p>Ainda não adicionou nenhum carro</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -21,7 +25,7 @@
 					<div class="col-12">
 						<div class="buttons-displacement">
 							<nuxt-link to="/refuels/add">
-								<div class="btn-main" >
+								<div class="btn-main">
 									<span>Abastecer</span>
 								</div>
 							</nuxt-link>
@@ -81,13 +85,12 @@
         },
         mounted(){
             this.$axios.get('/api/vehicles/own/')
-                .then(res => {
-                    this.vehicles = res.data.vehicles;
-                })
-                .catch(error => {
-                    this.error = error.response.data.error;
-                })
-
+			.then(res => {
+				this.vehicles = res.data.vehicles;
+			})
+			.catch(error => {
+				this.error = error.response.data.error;
+			})
         },
     }
 </script>

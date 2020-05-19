@@ -1,4 +1,39 @@
+.slick-slider{
+	position: relative;
+}
+
 .slick-arrow{
-  color: red;
+	font-size: 0;
+	position: absolute;
+	top: 50%;
+	color: #d5122f;
+	border: 0;
+	background: none;
+	outline: none;
+	@include translate(0,-50%);
+	@include hover-focus-active{
+		outline: none;
+	}
+	&.slick-prev{
+		right: 100%;
+		&:after{ content: '<' }
+	}
+	&.slick-next{
+		left: 100%;
+		&:after{ content: '>' }
+	}
+	&.slick-next, &.slick-prev{
+		&:after{
+			color: $primary;
+			@include rfs(4rem);
+			@include transition($transition-base);
+		}
+		@include hover-focus-active{
+			&:after{
+				text-shadow: 1px 1px 3px rgba(21, 21, 21, 0.2);
+				@include transition($transition-base);
+			}
+		}
+	}
 }
 
