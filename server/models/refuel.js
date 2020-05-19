@@ -15,7 +15,7 @@ const RefuelSchema = new Schema({
     },
     brand:{
         type: String,
-        allowedValues: ["Galp", "BP", "Repsol", "Pingo Doce", "Jumbo", "Other"],
+        allowedValues: ["Galp", "BP", "Repsol", "Pingo Doce", "Jumbo", "Prio"],
         required: true,
     },
     variety:{

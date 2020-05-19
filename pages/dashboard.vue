@@ -4,9 +4,13 @@
 			<div class="container-fluid">
 				<div class="row justify-content-center">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<p v-if="$auth.loggedIn">Hello {{$auth.user.username}}!</p>
-						<p v-else>Hello stranger</p>
-						<div @click="$auth.logout()">Logout</div>
+						<VueSlickCarousel :arrows="true" :dots="false">
+							<div>1</div>
+							<div>2</div>
+							<div>3</div>
+							<div>4</div>
+							
+						</VueSlickCarousel>
 					</div>
 				</div>
 			</div>
@@ -61,11 +65,30 @@
 <script>
 
     import BaseLayout from "../layout/default";
+    import VueSlickCarousel from 'vue-slick-carousel'
 
     export default {
         name: "dashboard",
         middleware: 'auth',
-        components: { BaseLayout },
+        components: { BaseLayout, VueSlickCarousel },
+        data(){
+            return{
+                // Data
+                vehicles: [],
+                // Control
+                error: '',
+            };
+        },
+        mounted(){
+            this.$axios.get('/api/vehicles/own/')
+                .then(res => {
+                    this.vehicles = res.data.vehicles;
+                })
+                .catch(error => {
+                    this.error = error.response.data.error;
+                })
+
+        },
     }
 </script>
 

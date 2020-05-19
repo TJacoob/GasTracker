@@ -68,7 +68,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row mt-5 justify-content-center text-center">
+						<div class="row mt-5 justify-content-end text-center">
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
 								<nuxt-link to="/dashboard">
 									<div class="btn-square">
@@ -76,6 +76,12 @@
 									</div>
 									<span class="text-overflow-center">Homepage</span>
 								</nuxt-link>
+							</div>
+							<div class="col-4 col-sm-6 col-md-5 col-lg-4 " @click="$auth.logout()">
+								<div class="btn-square">
+									<font-awesome-icon icon="sign-out-alt" class="btn-icon"/>
+								</div>
+								<span class="text-overflow-center">Logout</span>
 							</div>
 						</div>
 					</div>

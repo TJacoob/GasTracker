@@ -8,6 +8,10 @@
 // Sass Mixins
 @import 'mixins';
 
+// Slick Styling Base and Custom Styles
+@import 'node_modules/vue-slick-carousel/dist/vue-slick-carousel.css';
+@import 'slick';
+
 // Project Global Styles
 @import 'styles';
 @import 'framework';

@@ -59,14 +59,26 @@
 							<div class="form-group">
 								<div class="row text-center">
 									<div class="col-6 pr-2">
-										<div class="btn-option no-icon ">
+										<div class="btn-option no-icon"
+											 @click="selectVariety('Regular')"
+											 :class="{'active':this.variety==='Regular'}"
+										>
 											Simples
 										</div>
 									</div>
 									<div class="col-6 pl-2">
-										<div class="btn-option no-icon active">
+										<div class="btn-option no-icon"
+											 @click="selectVariety('Additive')"
+											 :class="{'active':this.variety==='Additive'}"
+										>
 											Aditivado
 										</div>
+									</div>
+									<div class="col-12 mt-2">
+										<small class="error-message"
+											   v-if="!this.$v.variety.required && this.submitted">
+											Escolha uma Variedade
+										</small>
 									</div>
 								</div>
 							</div>
@@ -147,11 +159,9 @@
 				<div class="row no-gutters">
 					<div class="col-12">
 						<div class="buttons-displacement">
-							<nuxt-link to="/vehicles/add">
-								<div class="btn-main">
-									<span>Adicionar</span>
-								</div>
-							</nuxt-link>
+							<div class="btn-main" @click="submit">
+								<span>Adicionar</span>
+							</div>
 						</div>
 						<div class="row mt-5 justify-content-center text-center">
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
