@@ -67,7 +67,7 @@
 </template>
 
 <script>
-
+	// TODO: Trocar de Favorito quando se faz scroll no slider
     import BaseLayout from "../layout/default";
     import VueSlickCarousel from 'vue-slick-carousel'
 
@@ -79,6 +79,7 @@
             return{
                 // Data
                 vehicles: [],
+				//favorite_vehicle: null,
                 // Control
                 error: '',
             };

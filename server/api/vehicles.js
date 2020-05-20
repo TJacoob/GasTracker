@@ -1,7 +1,9 @@
 //const UserService =require("../services/user-service") ;
 const VehicleService =require("../services/vehicle-service") ;
+const ProfileService =require("../services/profile-service") ;
 const { Router } = require('express');
 const { vehicleValidationRules, vehicleExists } = require('../validations/vehicle');
+const { getProfile } = require('../validations/profile');
 const { authRequest } = require('../middleware/auth');
 const { validate } = require('../middleware/validation');
 
@@ -28,12 +30,17 @@ router.post("/add",
     vehicleValidationRules(),
     validate,
     vehicleExists,
+    getProfile,
     async (req, res) => {
 
         let formData = req.body;
         formData.username = req.username;
         const reply = await VehicleService.CreateVehicle(formData);
-        return res.json(reply);
+
+		// Set Just Added Vehicle as favorite
+		const vehicle = await ProfileService.SetFavoriteVehicle(req.property, reply.vehicle);
+
+		return res.json(reply);
 
     }
 );

@@ -14,6 +14,9 @@ const ProfileSchema = new Schema({
     age:{
         type: Number,
     },
+	favorite_vehicle:{
+    	type: String,
+	},
     /*
     vehicles: {
         type: [String]

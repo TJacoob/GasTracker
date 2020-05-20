@@ -31,7 +31,7 @@
 									   placeholder="Preço por Litro"
 								>
 								<small class="error-message"
-									   v-if="!this.$v.price.numeric && this.submitted">
+									   v-if="!this.$v.price.decimal && this.submitted">
 									O preço tem de ser um número
 								</small>
 								<small class="error-message"
@@ -181,7 +181,8 @@
 </template>
 <script>
     import BaseLayout from "../../layout/default";
-    import {between, maxLength, numeric, required} from "vuelidate/lib/validators";
+	const qs = require('querystring');
+    import {between, maxLength, numeric, required, decimal} from "vuelidate/lib/validators";
 
     export default {
         name: "add",
@@ -189,6 +190,8 @@
         components: { BaseLayout },
         data(){
             return {
+				// Vehicle Data (fetchs favorite vehicle)
+				vehicle: null,
                 // Form Data
                 brand:'',
                 variety:'',
@@ -200,7 +203,16 @@
                 error: null,
             }
         },
-        methods:{
+		mounted() {
+			this.$axios.get('/api/profiles/favorite/')
+			.then(res => {
+				this.vehicle = res.data.vehicle;
+			})
+			.catch(error => {
+				this.error = error.response.data.error;
+			})
+		},
+		methods:{
             submit(){
                 if (this.$v.$invalid)
                     this.submitted=true;
@@ -212,17 +224,17 @@
                         kilometers:this.kilometers,
                         quantity:this.quantity,
                     };
-                    // TODO: Escolher automaticamente qual o carro a usar
-                    this.$axios.post('/api/refuels/{car}/add',
+                    this.$axios.post('/api/refuels/_'+this.vehicle.license+'/add',
                         qs.stringify(refuel),
                         {headers:{'Content-Type': 'application/x-www-form-urlencoded'}}
                     )
-                        .then(res => {
-                            //this.$router.push({name:'vehicles'});
-                        })
-                        .catch(error => {
-                            this.error = error.response.data.error;
-                        })
+					.then(res => {
+						//this.$router.push({name:'vehicles'});
+						console.log(res);
+					})
+					.catch(error => {
+						this.error = error.response.data.error;
+					})
                 }
             },
             selectVariety(variety){
@@ -241,7 +253,7 @@
             },
             price: {
                 required,
-                numeric,
+                decimal,
                 between: between(0, 5),
             },
             kilometers: {
