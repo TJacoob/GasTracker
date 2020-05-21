@@ -47,6 +47,8 @@ module.exports = {
         '@nuxtjs/axios',
         '@nuxtjs/auth',
         'nuxt-fontawesome',
+		// Docs: https://www.npmjs.com/package/@nuxtjs/localtunnel
+		'@nuxtjs/localtunnel',
     ],
     /*
     ** Plugins to load before mounting the App
@@ -69,7 +71,8 @@ module.exports = {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         baseURL: 'http://0.0.0.0:3001',
-        proxyHeaders: false,
+        browserBaseURL: 'http://0.0.0.0:3001',
+        proxyHeaders: true,
         credentials: false
     },
     /*

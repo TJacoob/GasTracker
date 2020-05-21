@@ -27,7 +27,7 @@ app.use('/api/profiles/', profiles);
 app.use('/api/vehicles/', vehicles);
 app.use('/api/refuels/', refuels);
 
-mongoose.connect('mongodb://127.0.0.1:27017/gastracker', { useNewUrlParser: true });
+mongoose.connect('mongodb://0.0.0.0:27017/gastracker', { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.on('error', function(err) { console.log(err.message); });
@@ -35,6 +35,7 @@ connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 
+require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
 
 async function start () {
 

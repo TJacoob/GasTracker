@@ -54,11 +54,10 @@ class ProfileService{
 	static async SetFavoriteVehicle(profile, vehicle) {
 		try{
 			const newProfile = profile;
-			console.log(vehicle);
 			newProfile.favorite_vehicle = vehicle.license;
 
 			return await newProfile.save()
-				.then( profile => { console.log(profile); return { success: true, profile: profile} } )
+				.then( profile => { return { success: true, profile: profile} } )
 				.catch( err => { return { success: false, error: err} } )
 
 		} catch (err) { return { 'success':false, 'error': err } }

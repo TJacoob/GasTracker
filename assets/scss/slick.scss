@@ -6,14 +6,15 @@
 	font-size: 0;
 	position: absolute;
 	top: 50%;
+	height: 100%;
 	color: #d5122f;
 	border: 0;
 	background: none;
 	outline: none;
+	opacity: 1;
 	@include translate(0,-50%);
-	@include hover-focus-active{
-		outline: none;
-	}
+	@include hover-focus-active{ outline: none }
+	@include transition($transition-base);
 	&.slick-prev{
 		right: 100%;
 		&:after{ content: '<' }
@@ -34,6 +35,10 @@
 				@include transition($transition-base);
 			}
 		}
+	}
+	&.slick-disabled{
+		opacity:0;
+		@include transition($transition-base);
 	}
 }
 

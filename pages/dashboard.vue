@@ -5,7 +5,13 @@
 				<div class="row justify-content-center">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
 						<div v-if="vehicles.length > 0">
-							<VueSlickCarousel :arrows="true" :dots="false">
+							<VueSlickCarousel
+								:arrows="true"
+								:dots="false"
+								:infinite="false"
+								@afterChange="changeFavorite"
+								ref="vehicleSlider"
+							>
 								<div v-for="vehicle in vehicles" class="dashboard-vehicle">
 									<img src="~/assets/images/samplecar.png" class="img-fluid px-3" >
 									<p class="">{{vehicle.name}}</p>
@@ -79,20 +85,56 @@
             return{
                 // Data
                 vehicles: [],
-				//favorite_vehicle: null,
+				favorite_vehicle: null,
                 // Control
                 error: '',
             };
         },
         mounted(){
-            this.$axios.get('/api/vehicles/own/')
-			.then(res => {
-				this.vehicles = res.data.vehicles;
-			})
-			.catch(error => {
-				this.error = error.response.data.error;
-			})
+            this.getOwnVehicles();
         },
+		methods:{
+        	changeFavorite(index){
+				this.$axios.post('/api/profiles/favorite/_'+this.vehicles[index].license)
+					.then(res => {
+						if(res.success)
+							this.getOwnVehicles();
+					})
+					.catch(error => {
+						this.error = error.response.data.error;
+					})
+			},
+			getOwnVehicles(){
+				this.$axios.get('/api/vehicles/own/')
+					.then(res => {
+						this.vehicles = res.data.vehicles;
+						this.getFavorite();
+					})
+					.catch(error => {
+						this.error = error.response.data.error;
+					})
+			},
+			getFavorite(){
+				this.$axios.get('/api/profiles/favorite/')
+					.then(res => {
+						if( res.data.success){
+							this.favorite_vehicle = res.data.vehicle;
+							let favorite_index = null;
+							this.vehicles.forEach((vehicle, index)=>{
+								if(vehicle.license===this.favorite_vehicle.license){
+									favorite_index = index;
+									return;
+								}
+							})
+							this.$refs.vehicleSlider.goTo(favorite_index);
+						}
+					})
+					.catch(error => {
+						this.error = error.response.data.error;
+					})
+			},
+
+		},
     }
 </script>
 
