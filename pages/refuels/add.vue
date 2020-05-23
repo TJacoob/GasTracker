@@ -219,8 +219,7 @@
                         {headers:{'Content-Type': 'application/x-www-form-urlencoded'}}
                     )
 					.then(res => {
-						//this.$router.push({name:'vehicles'});
-						console.log(res);
+						this.$router.push({path: '/refuels/summary'});
 					})
 					.catch(error => {
 						this.error = error.response.data.error;

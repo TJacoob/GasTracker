@@ -72,6 +72,23 @@ class VehicleService{
         } catch (err) { return { 'success':false, 'error': err } }
     }
 
+    // Add a new value of consumption of the last refuel and recalculates average
+    static async AddRefuel(vehicle, refuel, refuelsHistory) {
+        try{
+
+            let consumption =  ((100*refuel.quantity)/refuel.kilometers);
+            let newAverage = vehicle.consumption + ((consumption-vehicle.consumption)/refuelsHistory.length);
+            let newVehicle = vehicle;
+            newVehicle.consumption = newAverage;
+
+            return await newVehicle.save()
+                .then( vehicle => { return { success: true, vehicle: vehicle} } )
+                .catch( err => { return { success: false, error: err} } )
+
+        } catch (err) { return { 'success':false, 'error': err } }
+    }
+
+
 };
 
 

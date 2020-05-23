@@ -1,5 +1,5 @@
 <template>
-	<BaseLayout>
+	<ShortLayout>
 		<div slot="content" class="content-position align-end">
 			<div class="container-fluid">
 				<div class="row justify-content-center">
@@ -145,28 +145,16 @@
 							<div class="btn-main" @click="submit">
 								<span>Adicionar</span>
 							</div>
-							<div class="row mt-5 justify-content-center text-center">
-								<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
-									<nuxt-link to="/vehicles">
-										<div class="btn-square">
-											<font-awesome-icon icon="reply" class="btn-icon"/>
-										</div>
-										<span class="text-overflow-center">Voltar</span>
-									</nuxt-link>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</BaseLayout>
+	</ShortLayout>
 </template>
 
 <script>
-	// TODO: Add Scroll, validate fuel param, finish form
-
-    import BaseLayout from "../../layout/default";
+    import ShortLayout from "../../layout/short";
     import {helpers, maxLength, between, required, numeric} from "vuelidate/lib/validators";
     const qs = require('querystring');
 
@@ -175,7 +163,7 @@
     export default {
         name: "add",
         middleware: 'auth',
-        components: { BaseLayout },
+        components: { ShortLayout },
         data(){
             return {
                 // Form Data
