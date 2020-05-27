@@ -27,7 +27,10 @@ app.use('/api/profiles/', profiles);
 app.use('/api/vehicles/', vehicles);
 app.use('/api/refuels/', refuels);
 
-mongoose.connect('mongodb://0.0.0.0:27017/gastracker', { useNewUrlParser: true });
+if ( process.env.NODE_ENV === 'production')
+	mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+else
+	mongoose.connect('mongodb://0.0.0.0:27017/gastracker', { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.on('error', function(err) { console.log(err.message); });
