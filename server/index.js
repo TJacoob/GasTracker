@@ -58,10 +58,11 @@ async function start () {
     // Give nuxt middleware to express
     app.use(nuxt.render);
 
+	const PORT = process.env.PORT || port;
     // Listen the server
-    app.listen(port, host);
+    app.listen(PORT, host);
         consola.ready({
-            message: `Server listening on http://${host}:${port}`,
+            message: `Server listening on http://${host}:${PORT}`,
             badge: true
     });
 
