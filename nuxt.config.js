@@ -5,7 +5,7 @@ if ( process.env.NODE_ENV !== 'production')
 module.exports = {
     server: {
         port: process.env.PORT, // default: 3000
-        host: '0.0.0.0' // default: localhost
+        host: process.env.HOST // default: localhost
     },
     mode: 'universal',
     /*
@@ -72,8 +72,8 @@ module.exports = {
         common: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        baseURL: 'https://0.0.0.0:'+process.env.PORT,
-        browserBaseURL: 'https://0.0.0.0:'+process.env.PORT,
+        baseURL: 'https://'+process.env.HOST+':'+process.env.PORT,
+        browserBaseURL: 'https://'+process.env.HOST+':'+process.env.PORT,
         proxyHeaders: true,
         credentials: false
     },
