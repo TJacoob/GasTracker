@@ -57,7 +57,7 @@ async function start () {
     app.use(nuxt.render);
 
     const _HOST = process.env.HOST || host;
-	const _PORT = process.env.PORT;
+	const _PORT = process.env.PORT || port;
 
     // Listen the server
     app.listen(_PORT, _HOST);
