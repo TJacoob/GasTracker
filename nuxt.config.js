@@ -72,8 +72,8 @@ module.exports = {
         common: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        baseURL: 'http://0.0.0.0:3005',
-        browserBaseURL: 'http://0.0.0.0:3005',
+        baseURL: 'https://0.0.0.0:'+process.env.PORT,
+        browserBaseURL: 'https://0.0.0.0:'+process.env.PORT,
         proxyHeaders: true,
         credentials: false
     },
