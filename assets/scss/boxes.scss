@@ -22,11 +22,15 @@
 	  margin-top: -30px;
 	}
 	&.short{
-	  height: calc(var(--vh, 1vh) * 15);
+	  height: calc(var(--vh, 1vh) * 10);
+	  max-height: calc(var(--vh, 1vh) * 10);
 	}
   }
   .content{
 	height: calc(var(--vh, 1vh) * 70);
+	&.large{
+	  height: calc(var(--vh, 1vh) * 90);
+	}
   }
   .content-position{
 	position: absolute;

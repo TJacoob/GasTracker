@@ -18,7 +18,7 @@
 								</div>
 							</VueSlickCarousel>
 						</div>
-						<div v-else>
+						<div v-else class="text-center">
 							<p>Ainda não adicionou nenhum carro</p>
 						</div>
 					</div>
@@ -30,8 +30,9 @@
 				<div class="row no-gutters">
 					<div class="col-12">
 						<div class="buttons-displacement">
-							<nuxt-link to="/refuels/add">
-								<div class="btn-main">
+							<nuxt-link to="/refuels/add" :event="vehicles.length===0 ? '' : 'click'" >
+								<div class="btn-main"
+									 :class="{'disabled':vehicles.length===0}">
 									<span>Abastecer</span>
 								</div>
 							</nuxt-link>

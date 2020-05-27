@@ -28,10 +28,8 @@ class RefuelService{
     
     static async GetRefuels(vehicle) {
         try{
-            console.log(vehicle);
             let refuels = await Refuel.find({ vehicle:vehicle.id }).then(refuels => {
                 if (refuels) {
-                    console.log(refuels);
                     return { 'success':true, 'refuels': refuels }
                 }
                 else return { 'success':false, 'error': 'Could not find the refuel for the vehicle you requested' }
@@ -41,6 +39,22 @@ class RefuelService{
 
         } catch (err) { return { 'success':false, 'error': err } }
     }
+
+    static async GetLatestRefuel(vehicle) {
+        try{
+            let refuel = await Refuel.find({ vehicle:vehicle.id }).sort({_id:-1}).limit(1).then(refuel => {
+                if (refuel[0]) {
+                    return { 'success':true, 'refuel': refuel[0] }
+                }
+                else return { 'success':false, 'error': 'Could not find the refuel for the vehicle you requested' }
+            });
+
+            console.log(refuel);
+            return refuel;
+
+        } catch (err) { return { 'success':false, 'error': err } }
+    }
+
 
 };
 

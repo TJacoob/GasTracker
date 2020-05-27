@@ -1,5 +1,5 @@
 <template>
-	<BaseLayout>
+	<ShortLayout>
 		<div slot="content" class="content-position align-end">
 			<div class="container-fluid">
 				<div class="row justify-content-center">
@@ -163,31 +163,21 @@
 								<span>Adicionar</span>
 							</div>
 						</div>
-						<div class="row mt-5 justify-content-center text-center">
-							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
-								<nuxt-link to="/dashboard">
-									<div class="btn-square">
-										<font-awesome-icon icon="reply" class="btn-icon"/>
-									</div>
-									<span class="text-overflow-center">Voltar</span>
-								</nuxt-link>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</BaseLayout>
+	</ShortLayout>
 </template>
 <script>
-    import BaseLayout from "../../layout/default";
+    import ShortLayout from "../../layout/short";
 	const qs = require('querystring');
     import {between, maxLength, numeric, required, decimal} from "vuelidate/lib/validators";
 
     export default {
         name: "add",
         middleware: 'auth',
-        components: { BaseLayout },
+        components: { ShortLayout },
         data(){
             return {
 				// Vehicle Data (fetchs favorite vehicle)
@@ -229,8 +219,7 @@
                         {headers:{'Content-Type': 'application/x-www-form-urlencoded'}}
                     )
 					.then(res => {
-						//this.$router.push({name:'vehicles'});
-						console.log(res);
+						this.$router.push({path: '/refuels/summary'});
 					})
 					.catch(error => {
 						this.error = error.response.data.error;
