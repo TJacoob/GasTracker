@@ -2,7 +2,7 @@ require('dotenv').config();
 
 module.exports = {
     server: {
-        port: 3000, // default: 3000
+        port: 3005, // default: 3000
         host: '0.0.0.0' // default: localhost
     },
     mode: 'universal',
@@ -70,8 +70,8 @@ module.exports = {
         common: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        baseURL: 'http://0.0.0.0:3001',
-        browserBaseURL: 'http://0.0.0.0:3001',
+        baseURL: 'http://0.0.0.0:3005',
+        browserBaseURL: 'http://0.0.0.0:3005',
         proxyHeaders: true,
         credentials: false
     },

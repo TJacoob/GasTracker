@@ -4,10 +4,6 @@ const mongoose = require('mongoose');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
 
-console.log(process.env.PORT);
-console.log(process.env.HOST);
-console.log(process.env.NODE_ENV);
-
 // Body Parser
 const bodyParser  = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -60,8 +56,9 @@ async function start () {
     // Give nuxt middleware to express
     app.use(nuxt.render);
 
+	//const _HOST = process.env.HOST || host;
+	const _HOST = host;
 	const _PORT = process.env.PORT || port;
-	const _HOST = process.env.HOST || host;
 
     // Listen the server
     app.listen(_PORT, _HOST);
