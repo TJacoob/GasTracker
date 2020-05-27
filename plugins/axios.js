@@ -15,5 +15,9 @@ export default function ({store, app: { $axios }}) {
         console.log('Making request to ' + config.url)
     })
 
+	$axios.onError(error => {
+		console.log(error);
+	})
+
 
 }
