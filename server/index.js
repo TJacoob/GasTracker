@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
 
+console.log(process.env.PORT);
+console.log(process.env.HOST);
+console.log(process.env.NODE_ENV);
+
 // Body Parser
 const bodyParser  = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -38,8 +42,6 @@ connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 
-require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
-
 async function start () {
 
     // Init Nuxt.js
@@ -60,6 +62,7 @@ async function start () {
 
 	const _PORT = process.env.PORT || port;
 	const _HOST = process.env.HOST || host;
+
     // Listen the server
     app.listen(_PORT, _HOST);
         consola.ready({
