@@ -33,10 +33,6 @@ else
 	mongoose.connect('mongodb://0.0.0.0:27017/gastracker', { useNewUrlParser: true });
 const connection = mongoose.connection;
 
-console.log('ENV:' + process.env.NODE_ENV + '\n');
-console.log('HOST:' + process.env.HOST + '\n');
-console.log('PORT:' + process.env.PORT + '\n');
-
 connection.on('error', function(err) { console.log(err.message); });
 connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
