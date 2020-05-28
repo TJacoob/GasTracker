@@ -74,8 +74,8 @@ module.exports = {
         },
         //baseURL: 'https://'+process.env.HOST+':'+process.env.PORT,
         //browserBaseURL: 'https://'+process.env.HOST+':'+process.env.PORT,
-		baseURL: 'https://'+process.env.HOST+':'+process.env.PORT,
-		browserBaseURL: 'https://'+process.env.HOST+':'+process.env.PORT,
+		baseURL: 'https://gastracker-pt.herokuapp.com/',
+		browserBaseURL: 'https://gastracker-pt.herokuapp.com/',
         proxyHeaders: true,
         credentials: false
     },
