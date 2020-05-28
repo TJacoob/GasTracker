@@ -72,10 +72,12 @@ module.exports = {
         common: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        //baseURL: 'https://'+process.env.HOST+':'+process.env.PORT,
-        //browserBaseURL: 'https://'+process.env.HOST+':'+process.env.PORT,
-		baseURL: 'https://gastracker-pt.herokuapp.com/',
-		browserBaseURL: 'https://gastracker-pt.herokuapp.com/',
+		baseURL: 'https://'+process.env.HOST+':'+process.env.PORT+'/',
+		browserBaseURL: 'https://'+process.env.HOST+':'+process.env.PORT+'/',
+		//baseURL: 'https://0.0.0.0:'+process.env.PORT,
+        //browserBaseURL: 'https://0.0.0.0:'+process.env.PORT,
+		//baseURL: 'https://gastracker-pt.herokuapp.com/',
+		//browserBaseURL: 'https://gastracker-pt.herokuapp.com/',
         proxyHeaders: true,
         credentials: false
     },
