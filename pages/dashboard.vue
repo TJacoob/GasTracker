@@ -14,7 +14,26 @@
 							>
 								<div v-for="vehicle in vehicles" class="dashboard-vehicle">
 									<img src="~/assets/images/samplecar.png" class="img-fluid px-3" >
-									<p class="">{{vehicle.name}}</p>
+									<!--
+									<font-awesome-icon icon="car" class="fa-10x f-gray"/>
+									-->
+									<h1 class="font-weight-bold mb-0">{{vehicle.name}}</h1>
+									<p class="">{{vehicle.license}}</p>
+									<div class="row justify-content-center mb-3">
+										<div class="col-4" v-if="vehicle.consumption!==0">
+											<span class="d-block">
+												<span class="font-weight-bold">{{vehicle.consumption.toFixed(2)}}</span>
+												l
+											</span>
+											<div class="fill-bar my-1"
+												 :class="{
+													'improving':vehicle.consumption<=5,
+													'stable':vehicle.consumption>5 && vehicle.consumption<7,
+													'worsening':vehicle.consumption>=7,
+												 }"></div>
+											<small class="d-block">por 100km</small>
+										</div>
+									</div>
 								</div>
 							</VueSlickCarousel>
 						</div>

@@ -1,0 +1,18 @@
+.fill-bar{
+	height: 10px;
+	border: 1px solid $black;
+	border-radius: 1rem;
+	width: 100%;
+	&.improving{
+		background: rgb(255,255,255);
+		background: linear-gradient(90deg, rgba(255,255,255,0) 20%, rgba($success,1) 35%);
+	}
+	&.stable{
+		background: rgb(255,255,255);
+		background: linear-gradient(90deg, rgba(255,255,255,0) 45%, rgba($warning,1) 55%);
+	}
+	&.worsening{
+		background: rgb(255,255,255);
+		background: linear-gradient(90deg, rgba(255,255,255,0) 65%, rgba($danger,1) 80%);
+	}
+}
