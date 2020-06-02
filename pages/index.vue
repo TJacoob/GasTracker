@@ -1,8 +1,12 @@
 <template>
 	<BaseLayout>
-		<div slot="content">
+		<div slot="content" class="content-position align-end">
 			<div class="container-fluid">
-				<p>Lorem</p>
+				<div class="row">
+					<div class="col-12 text-center">
+						<img src="~/assets/images/logo.png" class="img-fluid" >
+					</div>
+				</div>
 			</div>
 		</div>
 		<div slot="navigation">
