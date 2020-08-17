@@ -18,7 +18,7 @@
 								</div>
 								<div class="col-auto align-self-center text-center">
 									<span>Consumo:</span>
-									<span class="font-weight-bold">{{vehicle.consumption}}L / 100</span>
+									<span class="font-weight-bold">{{vehicle.consumption.toFixed(2)}}L / 100</span>
 								</div>
 							</div>
 						</div>

@@ -38,7 +38,7 @@ router.get("/_:license/latest",
         if ( !reply.success)
             return reply;
 
-        console.log(reply);
+        //console.log(reply);
 
         reply = await RefuelService.GetLatestRefuel(reply.vehicle);
         return res.json(reply);

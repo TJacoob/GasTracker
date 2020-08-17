@@ -58,8 +58,8 @@
 						</div>
 						<div class="row mt-5 justify-content-center text-center">
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
-								<nuxt-link to="/login">
-									<div class="btn-square disabled">
+								<nuxt-link to="/refuels">
+									<div class="btn-square">
 										<font-awesome-icon icon="chart-line" class="btn-icon"/>
 									</div>
 									<span class="text-overflow-center">Consumos</span>
