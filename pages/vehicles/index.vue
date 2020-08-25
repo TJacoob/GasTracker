@@ -1,29 +1,38 @@
 <template>
 	<BaseLayout>
-		<div slot="content" class="content-position align-end">
+		<div slot="content" class="content-position mt-auto">
 			<div class="container-fluid">
-				<div class="row justify-content-center">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<div v-if="this.vehicles.length===0">
-							<p class="text-center">Ainda não tem nenhum Carro registado</p>
+				<transition name="fade">
+					<div v-show="!loaded" class="loading-screen">
+						<div class="my-auto">
+							<font-awesome-icon icon="circle-notch" class="fa-4x f-secondary fa-spin"/>
 						</div>
-						<div class="vehicle-card" v-for="vehicle in vehicles">
-							<div class="row">
-								<div class="col-auto align-self-center">
-									<font-awesome-icon icon="car" class="fa-2x"/>
-								</div>
-								<div class="col p-0 align-self-center">
-									<span>{{vehicle.license}}</span>
-									<span class="font-weight-bold">{{vehicle.name}}</span>
-								</div>
-								<div class="col-auto align-self-center text-center">
-									<span>Consumo:</span>
-									<span class="font-weight-bold">{{vehicle.consumption.toFixed(2)}}L / 100</span>
+					</div>
+				</transition>
+				<transition name="fade">
+					<div v-show="loaded" class="row justify-content-center">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-4">
+							<div v-if="this.vehicles.length===0">
+								<p class="text-center">Ainda não tem nenhum Carro registado</p>
+							</div>
+							<div class="vehicle-card" v-for="vehicle in vehicles">
+								<div class="row">
+									<div class="col-auto align-self-center">
+										<font-awesome-icon icon="car" class="fa-2x"/>
+									</div>
+									<div class="col p-0 align-self-center">
+										<span>{{vehicle.license}}</span>
+										<span class="font-weight-bold">{{vehicle.name}}</span>
+									</div>
+									<div class="col-auto align-self-center text-center">
+										<span>Consumo:</span>
+										<span class="font-weight-bold">{{vehicle.consumption.toFixed(2)}}L / 100</span>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</transition>
 			</div>
 		</div>
 		<div slot="navigation">
@@ -67,12 +76,14 @@
               	vehicles: [],
 				// Control
 				error: '',
+				loaded: false,
 			};
 		},
 		mounted(){
             this.$axios.get('/api/vehicles/own/')
                 .then(res => {
                     this.vehicles = res.data.vehicles;
+                    this.loaded = true;
                 })
                 .catch(error => {
                     this.error = error.response.data.error;

@@ -1,7 +1,7 @@
 <template>
 	<div class="row no-gutters">
 		<div class="col-12 col-sm-8 col-md-9">
-			<div class="content large">
+			<div class="content d-flex large">
 				<slot name="content"></slot>
 			</div>
 		</div>

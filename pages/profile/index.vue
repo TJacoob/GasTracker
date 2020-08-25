@@ -1,54 +1,63 @@
 <template>
 	<BaseLayout>
-		<div slot="content" class="content-position align-end">
+		<div slot="content" class="content-position mt-auto">
 			<div class="container-fluid">
-				<div class="row justify-content-center">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<div class="row small-gutters mb-3">
-							<div class="col-auto">
-								<font-awesome-icon icon="user" class="btn-icon fa-2x"/>
-							</div>
-							<div class="col align-self-center">
-								<div class="form-group mb-0 my-auto">
-									<input v-model="name"
-										   v-if="this.editing"
-										   type="text"
-										   class="form-control "
-										   :class="{ 'has-error':this.$v.name.$invalid && this.submitted }"
-										   id="inputName"
-										   placeholder="Name"
-									>
-									<span v-else>{{name}}</span>
+				<transition name="fade">
+					<div v-show="!loaded" class="loading-screen">
+						<div class="my-auto">
+							<font-awesome-icon icon="circle-notch" class="fa-4x f-secondary fa-spin"/>
+						</div>
+					</div>
+				</transition>
+				<transition name="fade">
+					<div v-show="loaded" class="row justify-content-center">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-4">
+							<div class="row mb-3">
+								<div class="col-auto">
+									<font-awesome-icon icon="user" class="btn-icon fa-2x"/>
+								</div>
+								<div class="col align-self-center">
+									<div class="form-group mb-0 my-auto">
+										<input v-model="name"
+											   v-if="this.editing"
+											   type="text"
+											   class="form-control "
+											   :class="{ 'has-error':this.$v.name.$invalid && this.submitted }"
+											   id="inputName"
+											   placeholder="Name"
+										>
+										<span v-else>{{name}}</span>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row small-gutters mb-3" v-if="age!==null || this.editing">
-							<div class="col-auto">
-								<font-awesome-icon icon="user" class="btn-icon fa-2x"/>
-							</div>
-							<div class="col">
-								<div class="form-group mb-0">
-									<input v-model="age"
-										   v-if="this.editing"
-										   type="text"
-										   class="form-control"
-										   :class="{'has-error':this.$v.age.$invalid && this.submitted}"
-										   id="inputAge"
-										   placeholder="Age"
-									>
-									<span v-else>{{age}}</span>
+							<div class="row mb-3" v-if="age!==null || this.editing">
+								<div class="col-auto">
+									<font-awesome-icon icon="user" class="btn-icon fa-2x"/>
+								</div>
+								<div class="col">
+									<div class="form-group mb-0">
+										<input v-model="age"
+											   v-if="this.editing"
+											   type="text"
+											   class="form-control"
+											   :class="{'has-error':this.$v.age.$invalid && this.submitted}"
+											   id="inputAge"
+											   placeholder="Age"
+										>
+										<span v-else>{{age}}</span>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row small-gutters" v-if="this.dataUpdated">
-							<div class="col-12">
-								<div class="alert alert-success" role="alert">
-									Dados Atualizados com Sucesso
+							<div class="row small-gutters" v-if="this.dataUpdated">
+								<div class="col-12">
+									<div class="alert alert-success" role="alert">
+										Dados Atualizados com Sucesso
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</transition>
 			</div>
 		</div>
 		<div slot="navigation">
@@ -110,6 +119,7 @@
                 error: null,
 				editing:false,
 				dataUpdated: false,
+				loaded: false,
             }
         },
         mounted () {
@@ -117,6 +127,7 @@
 			.then(res => {
 				this.name = res.data.profile.name;
 				this.age = res.data.profile.age;
+				this.loaded = true;
 			})
 			.catch(error => {
 				this.error = error.response.data.error;

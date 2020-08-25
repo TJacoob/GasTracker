@@ -1,140 +1,150 @@
 <template>
 	<ShortLayout>
-		<div slot="content" class="content-position align-end">
+		<div slot="content" class="content-position mt-auto">
 			<div class="container-fluid">
-				<div class="row justify-content-center">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<form ref="vehicleAddForm" @submit.prevent="submit">
-							<div class="form-group">
-								<input v-model="license"
-									   type="text"
-									   class="form-control"
-									   :class="{'has-error':this.$v.license.$invalid && this.submitted}"
-									   id="inputLicense"
-									   placeholder="Matricula"
-								>
-								<small class="error-message"
-									   v-if="!this.$v.license.licensePlatePT && this.submitted">
-									Formato de Matrícula Inválido
-								</small>
-							</div>
-							<div class="form-group">
-								<input v-model="name"
-									   type="text"
-									   class="form-control"
-									   :class="{'has-error':this.$v.name.$invalid && this.submitted}"
-									   id="inputName"
-									   placeholder="Alcunha"
-								>
-								<small class="error-message"
-									   v-if="!this.$v.name.maxLength && this.submitted">
-									Use menos de 64 caracteres
-								</small>
-							</div>
-							<div class="form-group">
-								<input v-model="brand"
-									   type="text"
-									   class="form-control"
-									   :class="{'has-error':this.$v.brand.$invalid && this.submitted}"
-									   id="inputBrand"
-									   placeholder="Marca"
-								>
-								<small class="error-message"
-									   v-if="!this.$v.brand.maxLength && this.submitted">
-									Use menos de 128 caracteres
-								</small>
-							</div>
-							<div class="form-group">
-								<input v-model="model"
-									   type="text"
-									   class="form-control"
-									   :class="{'has-error':this.$v.model.$invalid && this.submitted}"
-									   id="inputModel"
-									   placeholder="Modelo"
-								>
-								<small class="error-message"
-									   v-if="!this.$v.model.maxLength && this.submitted">
-									Use menos de 128 caracteres
-								</small>
-							</div>
-							<div class="form-group">
-								<input v-model="year"
-									   type="text"
-									   class="form-control"
-									   :class="{'has-error':this.$v.year.$invalid && this.submitted}"
-									   id="inputYear"
-									   placeholder="Ano"
-								>
-								<small class="error-message"
-									   v-if="!this.$v.year.numeric && this.submitted">
-									Insira um Ano
-								</small>
-								<small class="error-message"
-									   v-if="!this.$v.year.between && this.submitted && this.$v.year.numeric">
-									Insira um ano posterior a 1900 e menor que o atual
-								</small>
-							</div>
-							<div class="form-group">
-								<input v-model="kilometers"
-									   type="text"
-									   class="form-control"
-									   :class="{'has-error':this.$v.kilometers.$invalid && this.submitted}"
-									   id="inputKilometers"
-									   placeholder="Kilometros (atuais)"
-								>
-								<small class="error-message"
-									   v-if="!this.$v.kilometers.numeric && this.submitted">
-									Insira um número
-								</small>
-								<small class="error-message"
-									   v-if="!this.$v.kilometers.between && this.submitted && this.$v.kilometers.numeric">
-									Insira um número maior que 0
-								</small>
+				<transition name="fade">
+					<div v-show="sending" class="loading-screen">
+						<div class="my-auto">
+							<font-awesome-icon icon="circle-notch" class="fa-4x f-secondary fa-spin"/>
+						</div>
+					</div>
+				</transition>
+				<transition name="fade">
+					<div v-show="!sending" class="row justify-content-center">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-4">
+							<form ref="vehicleAddForm" @submit.prevent="submit">
+								<div class="form-group">
+									<input v-model="license"
+										   type="text"
+										   class="form-control"
+										   :class="{'has-error':this.$v.license.$invalid && this.submitted}"
+										   id="inputLicense"
+										   placeholder="Matricula"
+									>
+									<small class="error-message"
+										   v-if="!this.$v.license.licensePlatePT && this.submitted">
+										Formato de Matrícula Inválido
+									</small>
+								</div>
+								<div class="form-group">
+									<input v-model="name"
+										   type="text"
+										   class="form-control"
+										   :class="{'has-error':this.$v.name.$invalid && this.submitted}"
+										   id="inputName"
+										   placeholder="Alcunha"
+									>
+									<small class="error-message"
+										   v-if="!this.$v.name.maxLength && this.submitted">
+										Use menos de 64 caracteres
+									</small>
+								</div>
+								<div class="form-group">
+									<input v-model="brand"
+										   type="text"
+										   class="form-control"
+										   :class="{'has-error':this.$v.brand.$invalid && this.submitted}"
+										   id="inputBrand"
+										   placeholder="Marca"
+									>
+									<small class="error-message"
+										   v-if="!this.$v.brand.maxLength && this.submitted">
+										Use menos de 128 caracteres
+									</small>
+								</div>
+								<div class="form-group">
+									<input v-model="model"
+										   type="text"
+										   class="form-control"
+										   :class="{'has-error':this.$v.model.$invalid && this.submitted}"
+										   id="inputModel"
+										   placeholder="Modelo"
+									>
+									<small class="error-message"
+										   v-if="!this.$v.model.maxLength && this.submitted">
+										Use menos de 128 caracteres
+									</small>
+								</div>
+								<div class="form-group">
+									<input v-model="year"
+										   type="text"
+										   class="form-control"
+										   :class="{'has-error':this.$v.year.$invalid && this.submitted}"
+										   id="inputYear"
+										   placeholder="Ano"
+									>
+									<small class="error-message"
+										   v-if="!this.$v.year.numeric && this.submitted">
+										Insira um Ano
+									</small>
+									<small class="error-message"
+										   v-if="!this.$v.year.between && this.submitted && this.$v.year.numeric">
+										Insira um ano posterior a 1900 e menor que o atual
+									</small>
+								</div>
+								<div class="form-group">
+									<input v-model="kilometers"
+										   type="text"
+										   class="form-control"
+										   :class="{'has-error':this.$v.kilometers.$invalid && this.submitted}"
+										   id="inputKilometers"
+										   placeholder="Kilometros (atuais)"
+									>
+									<small class="error-message"
+										   v-if="!this.$v.kilometers.numeric && this.submitted">
+										Insira um número
+									</small>
+									<small class="error-message"
+										   v-if="!this.$v.kilometers.between && this.submitted && this.$v.kilometers.numeric">
+										Insira um número maior que 0
+									</small>
 
-							</div>
-							<div class="form-group mt-4">
-								<div class="row text-center">
-									<div class="col-4">
-										<div class="btn-option"
-											 @click="selectFuel('Gasóleo')"
-											 :class="{'active':this.fuel==='Gasóleo'}"
-										>
-											<font-awesome-icon icon="gas-pump" class="btn-icon"/>
+								</div>
+								<div class="form-group mt-4">
+									<div class="row text-center">
+										<div class="col-4">
+											<div class="btn-option"
+												 @click="selectFuel('Gasóleo')"
+												 :class="{'active':this.fuel==='Gasóleo'}"
+											>
+												<font-awesome-icon icon="gas-pump" class="btn-icon"/>
+											</div>
+											<span class="text-overflow-center">Gasóleo</span>
 										</div>
-										<span class="text-overflow-center">Gasóleo</span>
-									</div>
-									<div class="col-4">
-										<div class="btn-option"
-											 @click="selectFuel('Gasolina 98')"
-											 :class="{'active':this.fuel==='Gasolina 98'}"
-										>
-											<font-awesome-icon icon="gas-pump" class="btn-icon"/>
+										<div class="col-4">
+											<div class="btn-option"
+												 @click="selectFuel('Gasolina 98')"
+												 :class="{'active':this.fuel==='Gasolina 98'}"
+											>
+												<font-awesome-icon icon="gas-pump" class="btn-icon"/>
+											</div>
+											<span class="text-overflow-center">Gasolina 98</span>
 										</div>
-										<span class="text-overflow-center">Gasolina 98</span>
-									</div>
-									<div class="col-4">
-										<div class="btn-option"
-											 @click="selectFuel('Gasolina 95')"
-											 :class="{'active':this.fuel==='Gasolina 95'}"
-										>
-											<font-awesome-icon icon="gas-pump" class="btn-icon"/>
+										<div class="col-4">
+											<div class="btn-option"
+												 @click="selectFuel('Gasolina 95')"
+												 :class="{'active':this.fuel==='Gasolina 95'}"
+											>
+												<font-awesome-icon icon="gas-pump" class="btn-icon"/>
+											</div>
+											<span class="text-overflow-center">Gasolina 95</span>
 										</div>
-										<span class="text-overflow-center">Gasolina 95</span>
-									</div>
-									<div class="col-12 mt-2">
-										<small class="error-message"
-											   v-if="!this.$v.fuel.required && this.submitted">
-											Escolha um Combustível
-										</small>
+										<div class="col-12 mt-2">
+											<small class="error-message"
+												   v-if="!this.$v.fuel.required && this.submitted">
+												Escolha um Combustível
+											</small>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="alert alert-danger" role="alert" v-if="this.error!==null">
-								{{error}}
-							</div>
-						</form>
+								<div class="alert alert-danger" role="alert" v-if="this.error!==null">
+									{{error}}
+								</div>
+							</form>
+						</div>
 					</div>
-				</div>
+				</transition>
+
 			</div>
 		</div>
 		<div slot="navigation">
@@ -177,6 +187,7 @@
                 // Form Controllers
                 submitted: false,
                 error: null,
+				sending: false,
             }
         },
 		methods:{
@@ -184,6 +195,7 @@
                 if (this.$v.$invalid)
                     this.submitted=true;
                 else {
+                	this.sending = true;
                     let vehicle = {
                         license:this.license,
                         name:this.name,

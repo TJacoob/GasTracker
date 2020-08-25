@@ -1,8 +1,16 @@
 <template>
 	<BaseLayout>
-		<div slot="content" class="content-position align-end">
+		<div slot="content" class="content-position my-auto">
 			<div class="container-fluid">
-				<div class="row justify-content-center">
+				<transition name="fade">
+				<div v-show="!loaded" class="loading-screen">
+					<div class="my-auto">
+						<font-awesome-icon icon="circle-notch" class="fa-4x f-secondary fa-spin"/>
+					</div>
+				</div>
+				</transition>
+				<transition name="fade">
+					<div v-show="loaded" class="row justify-content-center">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
 						<div v-if="vehicles.length > 0">
 							<VueSlickCarousel
@@ -42,6 +50,7 @@
 						</div>
 					</div>
 				</div>
+				</transition>
 			</div>
 		</div>
 		<div slot="navigation">
@@ -106,6 +115,7 @@
                 // Data
                 vehicles: [],
 				favorite_vehicle: null,
+				loaded: false,
                 // Control
                 error: '',
             };
@@ -147,6 +157,7 @@
 								}
 							})
 							this.$refs.vehicleSlider.goTo(favorite_index);
+							this.loaded = true;
 						}
 					})
 					.catch(error => {

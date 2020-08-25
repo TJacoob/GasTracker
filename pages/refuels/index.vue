@@ -1,26 +1,35 @@
 <template>
 	<BaseLayout>
-		<div slot="content" class="content-position align-end">
+		<div slot="content" class="content-position my-auto">
 			<div class="container-fluid">
-				<div class="row justify-content-center">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<div v-if="this.refuels.length===0">
-							<p class="text-center">Ainda não fez nenhum abastecimento neste carro</p>
+				<transition name="fade">
+					<div v-show="!loaded" class="loading-screen">
+						<div class="my-auto">
+							<font-awesome-icon icon="circle-notch" class="fa-4x f-secondary fa-spin"/>
 						</div>
-						<div class="vehicle-card" v-for="refuel in refuels">
-							<div class="row">
-								<div class="col align-self-center">
-									<span>{{formatDate(refuel.date)}}</span>
-									<span class="font-weight-bold">{{refuel.brand}}</span>
-								</div>
-								<div class="col-auto align-self-center text-center">
-									<span>{{refuel.quantity}} L ({{refuel.price}}€)</span>
-									<span class="font-weight-bold">{{refuel.kilometers}} KMs</span>
+					</div>
+				</transition>
+				<transition name="fade">
+					<div v-show="loaded" class="row justify-content-center">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-4">
+							<div v-if="this.refuels.length===0">
+								<p class="text-center">Ainda não fez nenhum abastecimento neste carro</p>
+							</div>
+							<div class="vehicle-card" v-for="refuel in refuels">
+								<div class="row">
+									<div class="col align-self-center">
+										<span>{{formatDate(refuel.date)}}</span>
+										<span class="font-weight-bold">{{refuel.brand}}</span>
+									</div>
+									<div class="col-auto align-self-center text-center">
+										<span>{{refuel.quantity}} L ({{refuel.price}}€)</span>
+										<span class="font-weight-bold">{{refuel.kilometers}} KMs</span>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</transition>
 			</div>
 		</div>
 		<div slot="navigation">
@@ -64,6 +73,7 @@ export default {
 			refuels: [],
 			// Control
 			error: '',
+			loaded: false,
 		};
 	},
 	mounted(){
@@ -73,7 +83,7 @@ export default {
 				this.$axios.get('/api/refuels/_'+this.vehicle.license+'/')
 					.then(res => {
 						this.refuels = res.data.refuels;
-						console.log(this.refuels);
+						this.loaded = true;
 					})
 					.catch(error => {
 						this.error = error.response.data.error;

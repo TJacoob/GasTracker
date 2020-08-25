@@ -1,30 +1,39 @@
 <template>
 	<BaseLayout>
-		<div slot="content" class="content-position align-end">
+		<div slot="content" class="content-position my-auto">
 			<div class="container-fluid">
-				<div class="row justify-content-center">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-4 text-center">
-						<div v-if="this.refuel!==null">
-							<span class="d-block f-gray mb-0">o seu consumo desde o último abastecimento:</span>
-							<h1 class="font-weight-bold mb-0">{{consumption.toFixed(2)}}</h1>
-							<span class="d-block">litros por 100km</span>
-							<div class="mb-5"></div>
-							<h2 class="font-weight-bold mb-0"
-								:class="{'f-success':balance<=0,'f-danger':balance>0}">
-								<font-awesome-icon v-if="balance>0" icon="angle-up" class="btn-icon fa-xs"/>
-								<font-awesome-icon v-if="balance<=0" icon="angle-down" class="btn-icon fa-xs"/>
-								{{balance.toFixed(1)}}
-								<span class="font-weight-light smaller">%</span>
-							</h2>
-							<span v-if="balance>0" class="d-block">acima da sua média</span>
-							<span v-if="balance<=0" class="d-block">abaixo da sua média</span>
-							<div class="mb-5"></div>
-							<span class="d-block f-gray mb-0">o seu consumo médio</span>
-							<h2 class="font-weight-bold mb-1">{{vehicle.consumption.toFixed(2)}}</h2>
-							<span class="d-block">litros por 100km</span>
+				<transition name="fade">
+					<div v-show="!loaded" class="loading-screen">
+						<div class="my-auto">
+							<font-awesome-icon icon="circle-notch" class="fa-4x f-secondary fa-spin"/>
 						</div>
 					</div>
-				</div>
+				</transition>
+				<transition name="fade">
+					<div v-show="loaded" class="row justify-content-center">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-4 text-center">
+							<div v-if="this.refuel!==null">
+								<span class="d-block f-gray mb-0">o seu consumo desde o último abastecimento:</span>
+								<h1 class="font-weight-bold mb-0">{{consumption.toFixed(2)}}</h1>
+								<span class="d-block">litros por 100km</span>
+								<div class="mb-5"></div>
+								<h2 class="font-weight-bold mb-0"
+									:class="{'f-success':balance<=0,'f-danger':balance>0}">
+									<font-awesome-icon v-if="balance>0" icon="angle-up" class="btn-icon fa-xs"/>
+									<font-awesome-icon v-if="balance<=0" icon="angle-down" class="btn-icon fa-xs"/>
+									{{balance.toFixed(1)}}
+									<span class="font-weight-light smaller">%</span>
+								</h2>
+								<span v-if="balance>0" class="d-block">acima da sua média</span>
+								<span v-if="balance<=0" class="d-block">abaixo da sua média</span>
+								<div class="mb-5"></div>
+								<span class="d-block f-gray mb-0">o seu consumo médio</span>
+								<h2 class="font-weight-bold mb-1">{{vehicle.consumption.toFixed(2)}}</h2>
+								<span class="d-block">litros por 100km</span>
+							</div>
+						</div>
+					</div>
+				</transition>
 			</div>
 		</div>
 		<div slot="navigation">
@@ -61,6 +70,7 @@
                 refuel: null,
                 //Request Controller
                 error: null,
+				loaded: false,
             }
         },
         mounted() {
@@ -70,7 +80,7 @@
                 this.$axios.get('/api/refuels/_'+this.vehicle.license+'/latest/')
                     .then(res => {
                         this.refuel = res.data.refuel;
-                        //console.log(this.refuel);
+                        this.loaded = true;
                     })
                     .catch(error => {
                         this.error = error.response.data.error;
