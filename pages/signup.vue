@@ -1,6 +1,6 @@
 <template>
 	<BaseLayout>
-		<div slot="content" class="content-position align-end">
+		<div slot="content" class="content-position my-auto">
 			<div class="container-fluid">
 				<div class="row justify-content-center">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-4">

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Connecting to the Atlas Database and retrieving the database
+mongodump --uri mongodb+srv://heroku_936xgkdf:@gastracker.cjlxt.mongodb.net/heroku_936xgkdf -o ./temp --forceTableScan
+if [ $? -ne 0 ]; then
+  echo "$1: $error"
+  exit 1
+fi
+
+# Dropping Local Database and Restoring from the downloaded data
+mongo gastracker --quiet --eval 'db.dropDatabase();'
+mongorestore -d gastracker temp/heroku_936xgkdf
+if [ $? -ne 0 ]; then
+  echo "$1: $error"
+  exit 1
+fi
+
+# Clean up
+rm -rf temp
+
+echo "Sync Successful"
