@@ -9,10 +9,12 @@
 	overflow-y: scroll;
 	overscroll-behavior-y: contain;
 	scroll-snap-type: y proximity;
+	/*
 	.vehicle-card:last-of-type{
 		scroll-snap-align: end;
 		scroll-margin-block-end: 3rem;
 	}
+	*/
 }
 
 .loading-screen{

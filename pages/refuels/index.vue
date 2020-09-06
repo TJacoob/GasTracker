@@ -11,7 +11,7 @@
 				</transition>
 				<transition name="fade">
 					<div v-show="loaded" class="row justify-content-center">
-						<div class="col-12 col-sm-12 col-md-6 col-lg-4">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-4" id="refuels-list">
 							<div v-if="this.refuels.length===0">
 								<p class="text-center">Ainda não fez nenhum abastecimento neste carro</p>
 							</div>
@@ -93,10 +93,14 @@ export default {
 				this.error = error.response.data.error;
 			});
 	},
+	updated(){
+		let elmnt = document.getElementsByClassName('vehicle-card');
+		elmnt.item(elmnt.length-1).scrollIntoView(true);
+	},
 	methods:{
 		formatDate: function(date){
 			let raw = new Date(date);
-			return raw.getDate() + '-' + raw.getMonth() + '-' + raw.getFullYear();
+			return raw.getDate() + '-' + (raw.getMonth()+1) + '-' + raw.getFullYear();
 		},
 	},
 }
