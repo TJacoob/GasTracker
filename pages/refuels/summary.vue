@@ -40,10 +40,23 @@
 			<div class="container-fluid buttons-center">
 				<div class="row no-gutters">
 					<div class="col-12">
-						<div class="row mt-5 justify-content-center text-center">
+						<div class="buttons-displacement">
+							<div class="btn-main" style="visibility: hidden;">
+								<span>.</span>
+							</div>
+						</div>
+						<div class="row mt-5 justify-content-start text-center">
+							<div class="col-4 col-sm-6 col-md-5 col-lg-4">
+								<nuxt-link to="/refuels" :event="this.loaded?'click':''">
+									<div class="btn-square mx-auto" :class="{'disabled':!this.loaded}">
+										<font-awesome-icon icon="list" class="btn-icon"/>
+									</div>
+									<span class="text-overflow-center">Consumos</span>
+								</nuxt-link>
+							</div>
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4">
 								<nuxt-link to="/dashboard">
-									<div class="btn-square">
+									<div class="btn-square mx-auto">
 										<font-awesome-icon icon="home" class="btn-icon"/>
 									</div>
 									<span class="text-overflow-center">Homepage</span>
@@ -77,14 +90,17 @@
             this.$axios.get('/api/profiles/favorite/')
 			.then(res => {
 				this.vehicle = res.data.vehicle;
-                this.$axios.get('/api/refuels/_'+this.vehicle.license+'/latest/')
-                    .then(res => {
-                        this.refuel = res.data.refuel;
-                        this.loaded = true;
-                    })
-                    .catch(error => {
-                        this.error = error.response.data.error;
-                    })
+				if( this.vehicle === undefined )
+					this.$router.push({path: '/dashboard'})
+				else
+					this.$axios.get('/api/refuels/_'+this.vehicle.license+'/latest/')
+						.then(res => {
+							this.refuel = res.data.refuel;
+							this.loaded = true;
+						})
+						.catch(error => {
+							this.error = error.response.data.error;
+						})
 			})
 			.catch(error => {
 				this.error = error.response.data.error;

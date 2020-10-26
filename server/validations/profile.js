@@ -4,7 +4,9 @@ const profileValidationRules = () => {
         // if not empty, name must be string
         body('name').if(body('name').not().isEmpty()).isString().withMessage("Name must be a string with words"),
         // if not empty, age must be number
-        body('age').if(body('age').not().isEmpty()).isNumeric().withMessage("Age must be a number"),
+        //body('age').if(body('age').not().isEmpty()).isNumeric().withMessage("Age must be a number"),
+		// if not empty, email must be an email
+		//body('email').if(body('email').not().isEmpty()).isEmail().withMessage("Must be a valid email"),
     ]
 };
 

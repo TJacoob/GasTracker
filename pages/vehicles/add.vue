@@ -1,6 +1,6 @@
 <template>
 	<ShortLayout>
-		<div slot="content" class="content-position mt-auto">
+		<div slot="content" class="content-position mt-auto my-sm-auto">
 			<div class="container-fluid">
 				<transition name="fade">
 					<div v-show="sending" class="loading-screen">
@@ -103,7 +103,7 @@
 								<div class="form-group mt-4">
 									<div class="row text-center">
 										<div class="col-4">
-											<div class="btn-option"
+											<div class="btn-option mx-auto"
 												 @click="selectFuel('Gasóleo')"
 												 :class="{'active':this.fuel==='Gasóleo'}"
 											>
@@ -112,7 +112,7 @@
 											<span class="text-overflow-center">Gasóleo</span>
 										</div>
 										<div class="col-4">
-											<div class="btn-option"
+											<div class="btn-option mx-auto"
 												 @click="selectFuel('Gasolina 98')"
 												 :class="{'active':this.fuel==='Gasolina 98'}"
 											>
@@ -121,7 +121,7 @@
 											<span class="text-overflow-center">Gasolina 98</span>
 										</div>
 										<div class="col-4">
-											<div class="btn-option"
+											<div class="btn-option mx-auto"
 												 @click="selectFuel('Gasolina 95')"
 												 :class="{'active':this.fuel==='Gasolina 95'}"
 											>

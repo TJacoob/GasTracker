@@ -1,6 +1,6 @@
 <template>
 	<BaseLayout>
-		<div slot="content" class="content-position mt-auto">
+		<div slot="content" class="content-position mt-auto my-sm-auto">
 			<div class="container-fluid">
 				<transition name="fade">
 					<div v-show="!loaded" class="loading-screen">
@@ -14,9 +14,9 @@
 						<div class="col-12 col-sm-12 col-md-6 col-lg-4">
 							<div class="row mb-3">
 								<div class="col-auto">
-									<font-awesome-icon icon="user" class="btn-icon fa-2x"/>
+									<font-awesome-icon icon="user" class="btn-icon fa-2x fa-fw"/>
 								</div>
-								<div class="col align-self-center">
+								<div class="col pl-0 align-self-center">
 									<div class="form-group mb-0 my-auto">
 										<input v-model="name"
 											   v-if="this.editing"
@@ -30,6 +30,7 @@
 									</div>
 								</div>
 							</div>
+							<!--
 							<div class="row mb-3" v-if="age!==null || this.editing">
 								<div class="col-auto">
 									<font-awesome-icon icon="user" class="btn-icon fa-2x"/>
@@ -48,6 +49,25 @@
 									</div>
 								</div>
 							</div>
+							<div class="row mb-3" v-if="email!==undefined  || this.editing">
+								<div class="col-auto">
+									<font-awesome-icon icon="envelope" class="btn-icon fa-2x fa-fw"/>
+								</div>
+								<div class="col pl-0 align-self-center">
+									<div class="form-group mb-0 my-auto">
+										<input v-model="email"
+											   v-if="this.editing"
+											   type="text"
+											   class="form-control"
+											   :class="{'has-error':this.$v.email.$invalid && this.submitted}"
+											   id="inputEmail"
+											   placeholder="Email"
+										>
+										<span v-else>{{email}}</span>
+									</div>
+								</div>
+							</div>
+							-->
 							<div class="row small-gutters" v-if="this.dataUpdated">
 								<div class="col-12">
 									<div class="alert alert-success" role="alert">
@@ -72,22 +92,33 @@
 								<div class="btn-main mb-4" @click="submit">
 									<span>Guardar</span>
 								</div>
-								<div class="btn-main btn-cancel mx-auto" @click="cancel">
-									<span>Cancelar</span>
-								</div>
 							</div>
 						</div>
 						<div class="row mt-5 justify-content-end text-center">
+							<div class="col-4 col-sm-6 col-md-5 col-lg-4" v-if="this.editing">
+								<div class="btn-square mx-auto" @click="cancel">
+									<font-awesome-icon icon="times" class="btn-icon"/>
+								</div>
+								<span class="text-overflow-center">Cancelar</span>
+							</div>
+							<div class="col-4 col-sm-6 col-md-5 col-lg-4" v-if="!this.editing">
+								<nuxt-link to="/help">
+									<div class="btn-square mx-auto">
+										<font-awesome-icon icon="question" class="btn-icon"/>
+									</div>
+									<span class="text-overflow-center">Ajuda</span>
+								</nuxt-link>
+							</div>
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
 								<nuxt-link to="/dashboard">
-									<div class="btn-square">
+									<div class="btn-square mx-auto">
 										<font-awesome-icon icon="home" class="btn-icon"/>
 									</div>
 									<span class="text-overflow-center">Homepage</span>
 								</nuxt-link>
 							</div>
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4 " @click="$auth.logout()">
-								<div class="btn-square">
+								<div class="btn-square mx-auto">
 									<font-awesome-icon icon="sign-out-alt" class="btn-icon"/>
 								</div>
 								<span class="text-overflow-center">Logout</span>
@@ -102,7 +133,7 @@
 
 <script>
     import BaseLayout from "../../layout/default";
-    import { required, integer } from 'vuelidate/lib/validators';
+    import { required, integer, email } from 'vuelidate/lib/validators';
     const qs = require('querystring');
 
     export default {
@@ -113,7 +144,8 @@
             return {
                 // Form Data
                 name:this.name,
-                age:this.age,
+                //age:this.age,
+				//email:this.email,
                 // Form Controllers
                 submitted: false,
                 error: null,
@@ -126,7 +158,8 @@
             this.$axios.get('/api/profiles/own')
 			.then(res => {
 				this.name = res.data.profile.name;
-				this.age = res.data.profile.age;
+				//this.age = res.data.profile.age;
+				//this.email = res.data.profile.email;
 				this.loaded = true;
 			})
 			.catch(error => {
@@ -142,7 +175,11 @@
                 if (this.$v.$invalid)
                     this.submitted=true;
                 else {
-                    const data = {name:this.name, age:this.age}
+                    const data = {
+                    	name:this.name,
+                    	//age:this.age,
+						//email:this.email
+                    }
                     this.$axios.post('/api/profiles/edit',
                         qs.stringify(data),
                         {headers:{'Content-Type': 'application/x-www-form-urlencoded'}}
@@ -161,7 +198,8 @@
                 this.$axios.get('/api/profiles/own')
 				.then(res => {
 					this.name = res.data.profile.name;
-					this.age = res.data.profile.age;
+					//this.age = res.data.profile.age;
+					//this.email = res.data.profile.email;
 					this.editing = false;
 				})
 				.catch(error => {
@@ -173,9 +211,14 @@
             name: {
                 required,
             },
+			/*
             age: {
                 integer,
-            }
+            },
+			email: {
+				email,
+			}
+			*/
         }
     }
 </script>

@@ -1,6 +1,6 @@
 <template>
 	<BaseLayout>
-		<div slot="content" class="content-position mt-auto">
+		<div slot="content" class="content-position mt-auto my-sm-auto">
 			<div class="container-fluid">
 				<transition name="fade">
 					<div v-show="!loaded" class="loading-screen">
@@ -12,8 +12,8 @@
 				<transition name="fade">
 					<div v-show="loaded" class="row justify-content-center">
 						<div class="col-12 col-sm-12 col-md-6 col-lg-4">
-							<div v-if="this.vehicles.length===0">
-								<p class="text-center">Ainda não tem nenhum Carro registado</p>
+							<div v-if="this.vehicles.length===0" class="text-center">
+								<p>Adicione um carro antes de registar um abastecimento</p>
 							</div>
 							<div class="vehicle-card" v-for="vehicle in vehicles">
 								<div class="row">
@@ -42,14 +42,14 @@
 						<div class="buttons-displacement">
 							<nuxt-link to="/vehicles/add">
 								<div class="btn-main">
-									<span>Acrescentar Carro</span>
+									<span>Registar Carro</span>
 								</div>
 							</nuxt-link>
 						</div>
 						<div class="row mt-5 justify-content-center text-center">
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
 								<nuxt-link to="/dashboard">
-									<div class="btn-square">
+									<div class="btn-square mx-auto">
 										<font-awesome-icon icon="home" class="btn-icon"/>
 									</div>
 									<span class="text-overflow-center">Homepage</span>

@@ -9,6 +9,8 @@
 	overflow-y: scroll;
 	overscroll-behavior-y: contain;
 	scroll-snap-type: y proximity;
+	overflow-x:hidden;
+	position:relative;
 	/*
 	.vehicle-card:last-of-type{
 		scroll-snap-align: end;
@@ -75,10 +77,10 @@
 	height: 100vh;
   }
   .content-position{
-	position: absolute;
+	//position: absolute;
 	width: 100%;
-	top: 50%;
+	//top: 50%;
 	padding: 35px 0;
-	@include translate(0,-50%);
+	//@include translate(0,-50%);
   }
 }

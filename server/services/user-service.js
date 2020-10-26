@@ -43,17 +43,21 @@ class UserService{
             let result = await bcrypt.compare(formData.password, user.password);
             if ( !result ){ return { 'success':false, 'error': 'Incorrect Password'} }
 
+            /*  Disabled this bit because there is no point in creating a new token at every login without adding a proper
+            	session, multi platform login system
             // Create JWT Token, save to user object and send back as reply (allows fetching user with only a token)
             const token = await this.generateToken(user);
 
             user.token = token;
             user = await user.save();
+            */
 
             return { 'success':true, 'username': user.username, 'email':user.email, 'token': user.token };
 
         } catch (err) { return { 'success':false, 'error': err } }
     }
 
+    /*
     static async getUser(formData) {
         try {
 
@@ -72,10 +76,12 @@ class UserService{
 
         } catch (err) { return { 'success':false, 'error': err } }
     }
+    */
 
     static async getUserByToken(token) {
         try {
 
+        	// TODO: Add token timestamp
             let user ;
             user = await User.findOne({token: token})
                 .then(user => {
@@ -99,8 +105,8 @@ class UserService{
                 });
 
             // Delete user token
-            user.token = null;
-            await user.save();
+            // user.token = null;
+            // await user.save();
 
             return { 'success':true };
 

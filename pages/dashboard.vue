@@ -1,6 +1,6 @@
 <template>
 	<BaseLayout>
-		<div slot="content" class="content-position my-auto">
+		<div slot="content" class="content-position mt-auto my-sm-auto">
 			<div class="container-fluid">
 				<transition name="fade">
 				<div v-show="!loaded" class="loading-screen">
@@ -21,8 +21,9 @@
 								ref="vehicleSlider"
 							>
 								<div v-for="vehicle in vehicles" class="dashboard-vehicle">
-									<img src="~/assets/images/samplecar.png" class="img-fluid px-3" >
+									<img src="~/assets/images/car_illustration.svg" class="img-fluid px-4 mb-3" >
 									<!--
+									<img src="~/assets/images/samplecar.png" class="img-fluid px-3" >
 									<font-awesome-icon icon="car" class="fa-10x f-gray"/>
 									-->
 									<h1 class="font-weight-bold mb-0">{{vehicle.name}}</h1>
@@ -46,7 +47,7 @@
 							</VueSlickCarousel>
 						</div>
 						<div v-else class="text-center">
-							<p>Ainda não adicionou nenhum carro</p>
+							<p>Adicione um carro antes de registar um abastecimento</p>
 						</div>
 					</div>
 				</div>
@@ -58,17 +59,22 @@
 				<div class="row no-gutters">
 					<div class="col-12">
 						<div class="buttons-displacement">
-							<nuxt-link to="/refuels/add" :event="vehicles.length===0 ? '' : 'click'" >
-								<div class="btn-main"
-									 :class="{'disabled':vehicles.length===0}">
+							<nuxt-link to="/refuels/add" v-if="vehicles.length>0" >
+								<div class="btn-main">
 									<span>Abastecer</span>
+								</div>
+							</nuxt-link>
+							<nuxt-link to="/vehicles/add" v-else>
+								<div class="btn-main">
+									<span>Registar Carro</span>
 								</div>
 							</nuxt-link>
 						</div>
 						<div class="row mt-5 justify-content-center text-center">
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
-								<nuxt-link to="/refuels">
-									<div class="btn-square">
+								<nuxt-link to="/refuels" :event="this.vehicles.length===0 ? '':'click'">
+									<div class="btn-square mx-auto"
+										 :class="{'disabled':this.vehicles.length===0}">
 										<font-awesome-icon icon="chart-line" class="btn-icon"/>
 									</div>
 									<span class="text-overflow-center">Consumos</span>
@@ -77,7 +83,7 @@
 							<div class="w-100 d-none d-sm-block d-lg-none mb-sm-3"></div>
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4">
 								<nuxt-link to="/vehicles">
-									<div class="btn-square">
+									<div class="btn-square mx-auto">
 										<font-awesome-icon icon="car" class="btn-icon"/>
 									</div>
 									<span class="text-overflow-center">Carros</span>
@@ -86,7 +92,7 @@
 							<div class="w-100 d-none d-sm-block d-lg-none mb-sm-3"></div>
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
 								<nuxt-link to="/profile">
-									<div class="btn-square">
+									<div class="btn-square mx-auto">
 										<font-awesome-icon icon="user" class="btn-icon"/>
 									</div>
 									<span class="text-overflow-center">Perfil</span>
@@ -138,7 +144,16 @@
 				this.$axios.get('/api/vehicles/own/')
 					.then(res => {
 						this.vehicles = res.data.vehicles;
-						this.getFavorite();
+						if( this.vehicles.length === 0 ){
+							this.loaded=true;
+						}
+						else if( this.vehicles.length === 1 ){
+							this.favorite_vehicle = res.data.vehicles[0];
+							this.loaded=true;
+						}
+						else if ( this.vehicles.length > 1 )
+							this.getFavorite();
+
 					})
 					.catch(error => {
 						this.error = error.response.data.error;

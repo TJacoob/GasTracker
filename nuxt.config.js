@@ -42,6 +42,7 @@ module.exports = {
     buildModules: [
         // https://github.com/nuxt-community/dotenv-module
         '@nuxtjs/dotenv',
+		'@nuxtjs/google-analytics',
     ],
     /*
     ** Nuxt.js modules
@@ -133,5 +134,10 @@ module.exports = {
             },
         ],
     },
+
+	// Google Analytics Configuration
+	googleAnalytics: {
+		id: process.env.GA_ID,
+	}
 
 }

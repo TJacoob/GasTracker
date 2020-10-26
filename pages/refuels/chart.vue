@@ -11,21 +11,13 @@
 				</transition>
 				<transition name="fade">
 					<div v-show="loaded" class="row justify-content-center">
-						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4" id="refuels-list">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4" id="refuels-chart">
 							<div v-if="this.refuels.length===0">
 								<p class="text-center">Ainda não fez nenhum abastecimento no carro atual</p>
 							</div>
-							<div class="vehicle-card" v-for="refuel in refuels">
-								<div class="row">
-									<div class="col align-self-center">
-										<span>{{formatDate(refuel.date)}}</span>
-										<span class="font-weight-bold">{{refuel.brand}}</span>
-									</div>
-									<div class="col-auto align-self-center text-center">
-										<span>{{refuel.quantity}} L ({{refuel.price}}€)</span>
-										<span class="font-weight-bold">{{refuel.kilometers}} KMs</span>
-									</div>
-								</div>
+							<div v-else class="text-center">
+								<p class="text-center">Média de Consumo dos ultimos 10 Abastecimentos (litros/100kms)</p>
+								<refuel-chart :raw-data="refuels" class="consumption-trend" ></refuel-chart>
 							</div>
 						</div>
 					</div>
@@ -37,19 +29,19 @@
 				<div class="row no-gutters">
 					<div class="col-12">
 						<div class="buttons-displacement">
-							<nuxt-link to="/refuels/add" :event="this.loaded?'click':''">
-								<div class="btn-main" :class="{'disabled':!this.loaded}">
+							<nuxt-link to="/refuels/add">
+								<div class="btn-main">
 									<span>Abastecer</span>
 								</div>
 							</nuxt-link>
 						</div>
 						<div class="row mt-5 justify-content-start text-center">
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
-								<nuxt-link to="/refuels/chart" :event="this.loaded?'click':''">
+								<nuxt-link to="/refuels" :event="this.loaded?'click':''">
 									<div class="btn-square mx-auto" :class="{'disabled':!this.loaded}">
-										<font-awesome-icon icon="chart-line" class="btn-icon"/>
+										<font-awesome-icon icon="list" class="btn-icon"/>
 									</div>
-									<span class="text-overflow-center">Gráfico</span>
+									<span class="text-overflow-center">Lista</span>
 								</nuxt-link>
 							</div>
 							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
@@ -60,14 +52,6 @@
 									<span class="text-overflow-center">Homepage</span>
 								</nuxt-link>
 							</div>
-							<div class="col-4 col-sm-6 col-md-5 col-lg-4 ">
-								<nuxt-link to="/refuels/summary" :event="this.loaded?'click':''">
-									<div class="btn-square mx-auto" :class="{'disabled':!this.loaded}">
-										<font-awesome-icon icon="undo" class="btn-icon"/>
-									</div>
-									<span class="text-overflow-center">Mais Recente</span>
-								</nuxt-link>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -75,13 +59,15 @@
 		</div>
 	</BaseLayout>
 </template>
+
 <script>
-import BaseLayout from "../../layout/default";
+import BaseLayout from "@/layout/default";
+import RefuelChart from "@/components/refuel-chart";
 
 export default {
-	name: "index",
+	name: "chart",
 	middleware: 'auth',
-	components: { BaseLayout },
+	components: {RefuelChart, BaseLayout },
 	data(){
 		return{
 			// Data
@@ -111,14 +97,14 @@ export default {
 			.catch(error => {
 				this.error = error.response.data.error;
 			});
+
 	},
+	/*
 	updated(){
-		if( this.refuels.length > 0 )
-		{
-			let elmnt = document.getElementsByClassName('vehicle-card');
-			elmnt.item(elmnt.length-1).scrollIntoView(true);
-		}
+		let elmnt = document.getElementsByClassName('vehicle-card');
+		elmnt.item(elmnt.length-1).scrollIntoView(true);
 	},
+	*/
 	methods:{
 		formatDate: function(date){
 			let raw = new Date(date);

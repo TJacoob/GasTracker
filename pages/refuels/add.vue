@@ -12,7 +12,7 @@
 				<transition name="fade">
 					<div v-show="!sending" class="row justify-content-center">
 						<div class="col-12 col-sm-12 col-md-6 col-lg-4">
-							<form ref="refuelAddForm" @submit.prevent="submit">
+							<form v-show="!showBrands" ref="refuelAddForm" @submit.prevent="submit">
 								<div class="form-group">
 									<input v-model="quantity"
 										   type="text"
@@ -91,6 +91,7 @@
 									</div>
 								</div>
 								<div class="form-group mt-4">
+									<!--
 									<div class="row text-center">
 										<div class="col-4 mb-3">
 											<div class="btn-option"
@@ -153,11 +154,46 @@
 											</small>
 										</div>
 									</div>
+									-->
+									<div class="row text-center">
+										<div class="col-12" v-if="this.brand===''">
+											<div class="vehicle-card" @click="toggleBrands">
+												<div class="row align-items-center" >
+													<div class="col text-left">
+														<span>Escolher Marca</span>
+													</div>
+													<div class="col-auto text-center ml-auto">
+														<font-awesome-icon icon="chevron-right" class="f-gray"/>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-12" v-else>
+											<div class="vehicle-card" @click="toggleBrands">
+												<div class="row align-items-center" >
+													<div class="col text-left">
+														<img v-if="brandLogo!==''" :src="brandLogo" style="max-height: 50px" class=" d-inline h-100 w-auto mr-2 my-n1" >
+														<span class="d-inline">{{brand}}</span>
+													</div>
+													<div class="col-auto text-center ml-auto">
+														<font-awesome-icon icon="chevron-right" class="f-gray"/>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 mt-2">
+											<small class="error-message"
+												   v-if="!this.$v.brand.required && this.submitted">
+												Escolha uma Marca
+											</small>
+										</div>
+									</div>
 								</div>
 								<div class="alert alert-danger" role="alert" v-if="this.error!==null">
 									{{error}}
 								</div>
 							</form>
+							<refuel-brands v-show="showBrands" :brand="brand" @selectBrand="selectBrand($event, ...arguments)" ></refuel-brands>
 						</div>
 					</div>
 				</transition>
@@ -168,7 +204,7 @@
 				<div class="row no-gutters">
 					<div class="col-12">
 						<div class="buttons-displacement">
-							<div class="btn-main" @click="submit">
+							<div class="btn-main" :class="{'disabled':!this.loaded}" @click="submit">
 								<span>Adicionar</span>
 							</div>
 						</div>
@@ -182,11 +218,12 @@
     import ShortLayout from "../../layout/short";
 	const qs = require('querystring');
     import {between, maxLength, numeric, required, decimal} from "vuelidate/lib/validators";
+	import RefuelBrands from "@/components/refuel-brands";
 
     export default {
         name: "add",
         middleware: 'auth',
-        components: { ShortLayout },
+        components: {RefuelBrands, ShortLayout},
         data(){
             return {
 				// Vehicle Data (fetchs favorite vehicle)
@@ -197,16 +234,21 @@
                 price:'',
                 kilometers:'',
                 quantity:'',
+				// UI Extras
+				brandLogo:'',
                 // Form Controllers
                 submitted: false,
                 error: null,
 				sending: false,
+				showBrands: false,
             }
         },
 		mounted() {
 			this.$axios.get('/api/profiles/favorite/')
 			.then(res => {
 				this.vehicle = res.data.vehicle;
+				if( this.vehicle === undefined )
+					this.$router.push({path: '/dashboard'})
 			})
 			.catch(error => {
 				this.error = error.response.data.error;
@@ -241,8 +283,13 @@
                 this.variety = variety;
             },
             selectBrand(brand){
-                this.brand = brand;
+                this.brand = brand.name;
+                this.brandLogo = brand.logo;
+				this.showBrands = false;
             },
+			toggleBrands(){
+				this.showBrands = !this.showBrands;
+			},
         },
         validations: {
             brand: {

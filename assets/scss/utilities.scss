@@ -12,3 +12,16 @@
 	}
   }
 }
+
+.text-link{
+	color: inherit;
+	transition: color .3s ease-in-out;
+	@include hover-focus-active{
+		color: $primary;
+		transition: color .3s ease-in-out;
+	}
+}
+
+@include media-breakpoint-only(xs) {
+	.text-link{ color: $primary }
+}
