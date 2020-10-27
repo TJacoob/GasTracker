@@ -20,8 +20,9 @@
 								@afterChange="changeFavorite"
 								ref="vehicleSlider"
 							>
-								<div v-for="vehicle in vehicles" class="dashboard-vehicle">
-									<img src="~/assets/images/car_illustration.svg" class="img-fluid px-4 mb-3" >
+								<div v-for="(vehicle, index) in vehicles" class="dashboard-vehicle">
+									<img v-if="index%2===0" src="~/assets/images/car_illustration_2.svg" class="img-fluid px-4 mb-3" >
+									<img v-else src="~/assets/images/car_illustration.svg" class="img-fluid px-4 mb-3" >
 									<!--
 									<img src="~/assets/images/samplecar.png" class="img-fluid px-3" >
 									<font-awesome-icon icon="car" class="fa-10x f-gray"/>

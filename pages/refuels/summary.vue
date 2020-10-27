@@ -96,6 +96,8 @@
 					this.$axios.get('/api/refuels/_'+this.vehicle.license+'/latest/')
 						.then(res => {
 							this.refuel = res.data.refuel;
+							if( this.refuel === undefined )
+								this.$router.push({path: '/refuels'})
 							this.loaded = true;
 						})
 						.catch(error => {

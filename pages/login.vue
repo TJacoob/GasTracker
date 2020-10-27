@@ -27,6 +27,9 @@
 								{{error}}
 							</div>
 						</form>
+						<span class="f-gray lh-sm">
+							<small>Se ainda nunca usaste este website, precisas de <a href="/signup" class="text-link">criar uma conta</a>.</small>
+						</span>
 					</div>
 				</div>
 			</div>
@@ -40,7 +43,7 @@
 								<span>Entrar</span>
 							</div>
 							<span class="f-gray lh-sm">
-								<small>Ao utilizar este website concorda com os <a href="/legal/termos-e-condicoes">Termos e Condições</a> e a <a href="/legal/privacidade-e-cookies">Política de Privacidade.</a></small>
+								<small>Ao utilizar este website concorda com os <a href="/legal/termos-e-condicoes" class="text-link">Termos e Condições</a> e a <a href="/legal/privacidade-e-cookies" class="text-link">Política de Privacidade.</a></small>
 							</span>
 						</div>
 					</div>

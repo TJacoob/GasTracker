@@ -15,11 +15,11 @@
 								>
 								<small class="error-message"
 									   v-if="!this.$v.username.minLength && this.submitted">
-									Should have at least 4 characters
+									Deve ter pelos menos 4 caracteres
 								</small>
 								<small class="error-message"
 									   v-if="!this.$v.username.maxLength && this.submitted">
-									Should have less than 128 characters
+									Deve ter menos de 128 caracteres
 								</small>
 							</div>
 							<div class="form-group">
@@ -32,7 +32,7 @@
 								>
 								<small class="error-message"
 									   v-if="!this.$v.email.email && this.submitted">
-									Should be valid email
+									Deve ser um email válido
 								</small>
 							</div>
 							<div class="form-group">
@@ -45,11 +45,11 @@
 								>
 								<small class="error-message"
 									   v-if="!this.$v.password.minLength && this.submitted">
-									Should have at least 6 characters
+									Deve ter pelos menos 6 caracteres
 								</small>
 								<small class="error-message"
 									   v-if="!this.$v.password.maxLength && this.submitted">
-									Should have less than 128 characters
+									Deve ter menos de 128 caracteres
 								</small>
 							</div>
 							<div class="form-group">
@@ -58,17 +58,20 @@
 									   class="form-control"
 									   :class="{'has-error':this.$v.password_confirm.$invalid && this.submitted}"
 									   id="inputPasswordConfirm"
-									   placeholder="Password (Again)"
+									   placeholder="Password (novamente)"
 								>
 								<small class="error-message"
 									   v-if="!this.$v.password_confirm.sameAs && this.submitted">
-									Passwords should be the same
+									Passwords devem ser iguais
 								</small>
 							</div>
 							<div class="alert alert-danger" role="alert" v-if="this.error!==null">
 								{{error}}
 							</div>
 						</form>
+						<span class="f-gray lh-sm">
+							<small>Se já usaste este website antes, <a href="/login" class="text-link">faz antes login</a>.</small>
+						</span>
 					</div>
 				</div>
 			</div>
@@ -79,10 +82,10 @@
 					<div class="col-12">
 						<div class="buttons-displacement">
 							<div class="btn-main" @click="register">
-								<span>Signup</span>
+								<span>Criar Conta</span>
 							</div>
 							<span class="f-gray lh-sm">
-								<small>Ao utilizar este website concorda com os <a href="/legal/termos-e-condicoes">Termos e Condições</a> e a <a href="/legal/privacidade-e-cookies">Política de Privacidade.</a></small>
+								<small>Ao utilizar este website concorda com os <a href="/legal/termos-e-condicoes" class="text-link">Termos e Condições</a> e a <a href="/legal/privacidade-e-cookies" class="text-link">Política de Privacidade.</a></small>
 							</span>
 						</div>
 					</div>

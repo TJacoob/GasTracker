@@ -5,6 +5,9 @@
 				<div class="row">
 					<div class="col-12 text-center">
 						<img src="~/assets/images/logo.png" class="img-fluid" >
+						<h4 class="font-weight-bold">
+							<a href="/help" class="text-link">Como funciona?</a>
+						</h4>
 					</div>
 				</div>
 			</div>
