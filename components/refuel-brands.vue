@@ -1,7 +1,7 @@
 <template>
 	<div class="row justify-content-center mb-4">
 		<div class="col-4 mb-3 text-center" v-for="(option,index) in brands" :key="index">
-			<div class="btn-option"
+			<div class="btn-option mx-auto"
 				 @click="selectBrand(option.name, option.logo)"
 				 :class="{'active':brand===option.name}"
 			>

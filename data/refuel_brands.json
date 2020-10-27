@@ -1,11 +1,11 @@
 [
 	{
 		"name": "BP",
-		"logo": ""
+		"logo": "/images/brands/bp.png"
 	},
 	{
 		"name": "Repsol",
-		"logo": ""
+		"logo": "/images/brands/repsol.png"
 	},
 	{
 		"name": "Galp",
@@ -13,23 +13,23 @@
 	},
 	{
 		"name": "Prio",
-		"logo": ""
+		"logo": "/images/brands/prio.png"
 	},
 	{
-		"name": "Jumbo",
-		"logo": ""
+		"name": "Auchan",
+		"logo": "/images/brands/auchan.png"
 	},
 	{
 		"name": "Cepsa",
-		"logo": ""
+		"logo": "/images/brands/cepsa.png"
 	},
 	{
 		"name": "Pingo Doce",
-		"logo": ""
+		"logo": "/images/brands/pingodoce.png"
 	},
 	{
 		"name": "Intermarché",
-		"logo": ""
+		"logo": "/images/brands/intermarche.png"
 	},
 	{
 		"name": "Outra",

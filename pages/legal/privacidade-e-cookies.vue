@@ -7,6 +7,7 @@
 						<h2 class="text-center font-weight-bold mb-3">Privacidade e Cookies</h2>
 						<p>Este website utiliza cookies funcionais para garantir funcionalidades como o estado da sessão. Estes dados são eliminados ao fazer logout da mesma.</p>
 						<p>É utilizado o Google Analytics para dados estatisticos e analiticos da interação com o sistema. Não está ativada a funcionalidade "remarketing audiences" pelo que não há registos de navegação do utilizador antes ou após a utilização do website.</p>
+						<p>Nenhuma informação pessoal do utilizador é vendida ou transferida para fora do website. Não são enviados emails publicitários.</p>
 					</div>
 				</div>
 			</div>

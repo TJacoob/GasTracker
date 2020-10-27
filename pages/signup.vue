@@ -82,7 +82,7 @@
 								<span>Signup</span>
 							</div>
 							<span class="f-gray lh-sm">
-								<small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis deleniti enim necessitatibus nostrum officia officiis repellendus voluptate? Autem eum illo labore molestiae mollitia sit unde voluptas? Impedit iure reiciendis ullam!</small>
+								<small>Ao utilizar este website concorda com os <a href="/legal/termos-e-condicoes">Termos e Condições</a> e a <a href="/legal/privacidade-e-cookies">Política de Privacidade.</a></small>
 							</span>
 						</div>
 					</div>

@@ -17,14 +17,27 @@ module.exports = {
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
             {
-            	hid: 'description',
-				name: 'description',
+            	hid: 'global',
+				name: 'GasTracker',
 				content: 'GasTracker'
-            }
+            },
+			{ name: 'apple-mobile-web-app-title', content: 'GasTracker' },
+			{ name: 'application-name', content: 'GasTracker' },
+			{ name: 'msapplication-TileColor', content: '#ffffff' },
+			{ name: 'theme-color', content: '#ffffff' },
         ],
-        link: [
-            { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap'}
-        ]
+		link:[
+			{ rel:'apple-touch-icon', sizes:'180x180', href:"/apple-touch-icon.png"},
+			{ rel:'icon', type:'image/png', sizes:'32x32', href:"/favicon-32x32.png"},
+			{ rel:'icon', type:'image/png', sizes:'16x16', href:"/favicon-16x16.png"},
+			{ rel:'manifest', href:"/site.webmanifest"},
+			{ rel:'mask-icon', href:"/safari-pinned-tab.svg", color:"#eec149"},
+			{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap'}
+
+		],
+		noscript: [
+			{ innerHTML: 'Body No Scripts', body: true }
+		],
     },
     /*
     ** Customize the progress-bar color
@@ -42,7 +55,6 @@ module.exports = {
     buildModules: [
         // https://github.com/nuxt-community/dotenv-module
         '@nuxtjs/dotenv',
-		'@nuxtjs/google-analytics',
     ],
     /*
     ** Nuxt.js modules
@@ -56,6 +68,9 @@ module.exports = {
         'nuxt-fontawesome',
 		// Docs: https://www.npmjs.com/package/@nuxtjs/localtunnel
 		//'@nuxtjs/localtunnel',
+
+		// Google Tag Manager: https://github.com/nuxt-community/google-gtag-module
+		'@nuxtjs/google-gtag',
     ],
     /*
     ** Plugins to load before mounting the App
@@ -135,9 +150,19 @@ module.exports = {
         ],
     },
 
-	// Google Analytics Configuration
-	googleAnalytics: {
+	// Google Tag Manager Settings
+	'google-gtag': {
 		id: process.env.GA_ID,
+		config: {
+			anonymize_ip: true, // anonymize IP
+			send_page_view: false, // might be necessary to avoid duplicated page track on page reload
+			linker: {
+				domains: [process.env.URL]
+			}
+		},
+		debug: true, // enable to track in dev mode
+		disableAutoPageTrack: false, // disable if you don't want to track each page route with router.afterEach(...).
 	}
+
 
 }

@@ -1,6 +1,6 @@
 <template>
 	<ShortLayout>
-		<div slot="content" class="content-position mt-auto">
+		<div slot="content" class="content-position mt-auto my-sm-auto">
 			<div class="container-fluid">
 				<transition name="fade">
 					<div v-show="sending" class="loading-screen">

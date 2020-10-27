@@ -181,6 +181,19 @@
 			},
 
 		},
+		head() {
+			return {
+				title: 'Dashboard',
+				meta: [
+					// hid is used as unique identifier. Do not use `vmid` for it as it will not work
+					{
+						hid: 'dashboard',
+						name: 'GasTracker Dashboard',
+						content: 'GasTracker Dashboard'
+					}
+				]
+			}
+		}
     }
 </script>
 
