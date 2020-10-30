@@ -6,7 +6,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
 						<h2 class="text-center font-weight-bold mb-3">Termos e Condições</h2>
 						<p>Este website foi desenvolvido por mim, <a class="text-link" href="https://tjacoob.github.io" target="_blank">Tomás Jacob</a>, a título pessoal. Esta aplicação pretende ser uma ferramenta, disponível online para uso público sem propósitos comerciais.</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem culpa deserunt earum, ex illo nesciunt nihil qui, quidem quo quod repellat totam, ullam vel? Atque cupiditate error itaque quo quos!</p>
+						<p>O objetivo é ajudar a monitorizar e controlar os gastos com combustível. A reliablidade da informação depende dos dados introduzidos pelos utilizadores, e é como tal meramente informativa.</p>
 					</div>
 				</div>
 			</div>
