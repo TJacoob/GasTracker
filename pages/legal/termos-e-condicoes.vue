@@ -7,6 +7,7 @@
 						<h2 class="text-center font-weight-bold mb-3">Termos e Condições</h2>
 						<p>Este website foi desenvolvido por mim, <a class="text-link" href="https://tjacoob.github.io" target="_blank">Tomás Jacob</a>, a título pessoal. Esta aplicação pretende ser uma ferramenta, disponível online para uso público sem propósitos comerciais.</p>
 						<p>O objetivo é ajudar a monitorizar e controlar os gastos com combustível. A reliablidade da informação depende dos dados introduzidos pelos utilizadores, e é como tal meramente informativa.</p>
+						<p>Qualquer dúvida relacionada com este projeto pode ser enviada para <a href="mailto:geral@gastracker.eu" target="_blank" class="text-link">geral@gastracker.eu</a>.</p>
 					</div>
 				</div>
 			</div>

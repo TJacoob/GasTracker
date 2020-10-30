@@ -6,7 +6,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-4">
 						<h1 class="text-center font-weight-bold mb-3">Gastracker</h1>
 						<p>O Gastracker é uma aplicação simples para controlar os consumos do teu carro, porque nem todos os carros o fazem automaticamente.</p>
-						<p>Para usares esta aplicação basta preencher a informação de cada vez que abastece o teu carro. Os valores são registados e os consumos calculados automaticamente. Podes ver a média de consumo para cada veículo e as mudanças a cada abastecimento.</p>
+						<p>Para usares esta aplicação basta preencher a informação de cada vez que abasteces o teu carro. Os valores são registados e os consumos calculados automaticamente. Podes ver a média de consumo para cada veículo e as mudanças a cada abastecimento.</p>
 					</div>
 				</div>
 			</div>

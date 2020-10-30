@@ -8,6 +8,7 @@
 						<p>Este website utiliza cookies funcionais para garantir funcionalidades como o estado da sessão. Estes dados são eliminados ao fazer logout da mesma.</p>
 						<p>É utilizado o Google Analytics para dados estatisticos e analiticos da interação com o sistema. Não está ativada a funcionalidade "remarketing audiences" pelo que não há registos de navegação do utilizador antes ou após a utilização do website.</p>
 						<p>Nenhuma informação pessoal do utilizador é vendida ou transferida para fora do website. Não são enviados emails publicitários.</p>
+						<p>Pedidos de remoção de dados pessoais, ou outros assuntos relacionados com privacidade devem ser enviados para <a href="mailto:privacy@gastracker.eu" target="_blank" class="text-link">privacy@gastracker.eu</a>.</p>
 					</div>
 				</div>
 			</div>
