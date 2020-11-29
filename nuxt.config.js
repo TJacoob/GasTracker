@@ -25,6 +25,8 @@ module.exports = {
 			{ name: 'application-name', content: 'GasTracker' },
 			{ name: 'msapplication-TileColor', content: '#ffffff' },
 			{ name: 'theme-color', content: '#ffffff' },
+			{ hid: 'og:title', property: 'og:title', content: 'GasTracker' },
+			{ hid: 'og:image', property: 'og:image', content: '/thumb.png' },
         ],
 		link:[
 			{ rel:'apple-touch-icon', sizes:'180x180', href:"/apple-touch-icon.png"},
