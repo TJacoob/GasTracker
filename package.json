@@ -25,7 +25,7 @@
     "bootstrap-vue": "^2.0.0",
     "chart.js": "^2.9.4",
     "cookieparser": "^0.1.0",
-    "cross-env": "^5.2.0",
+    "cross-env": "^5.2.1",
     "express": "^4.16.4",
     "express-validator": "^6.4.0",
     "js-cookie": "^2.2.1",

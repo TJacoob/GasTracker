@@ -241,12 +241,14 @@
                 error: null,
 				sending: false,
 				showBrands: false,
+				loaded: false,
             }
         },
 		mounted() {
 			this.$axios.get('/api/profiles/favorite/')
 			.then(res => {
 				this.vehicle = res.data.vehicle;
+				this.loaded = true;
 				if( this.vehicle === undefined )
 					this.$router.push({path: '/dashboard'})
 			})
@@ -272,9 +274,11 @@
                         {headers:{'Content-Type': 'application/x-www-form-urlencoded'}}
                     )
 					.then(res => {
+						console.log(res);
 						this.$router.push({path: '/refuels/summary'});
 					})
 					.catch(error => {
+						console.log(error);
 						this.error = error.response.data.error;
 					})
                 }
